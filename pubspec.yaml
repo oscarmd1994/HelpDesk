@@ -1,0 +1,75 @@
+name: app_soporte
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  hidden_drawer_menu: ^2.0.1
+  convex_bottom_bar: ^2.7.1+2
+  jumping_bottom_nav_bar: ^0.1.0
+  flutter_launcher_icons: ^0.9.0
+  http: ^0.13.0
+  lottie: ^1.0.1
+  google_fonts: ^2.0.0
+  carousel_slider: ^3.0.0
+  flutter_slidable: ^0.5.7
+  shared_preferences: ^2.0.6
+  shimmer: ^2.0.0
+
+flutter_icons:
+  android: 'laucher_icon'
+  ios: true
+  image_path: 'images/tools.png'
+  adaptative_icon_backgroun: 'images/tools.png'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    #Imagenes
+    - images/background.jpg
+    - images/dev1.jpg
+    - images/dev2.jpg
+    - images/dev3.jpg
+    - images/enginer.jpg
+    - images/fondo_perfil.jpg
+    - images/gear.png
+    - images/logo_app.png
+    - images/logo_raci_t.png
+    - images/logohelp_desk.png
+    - images/oficina1.jpg
+    - images/oficina2.jpg
+    - images/tecn1.jpg
+    - images/user.png
+    - images/user1.jpg
+    - images/users1.jpg
+    - images/users2.jpg
+    - images/user.png
+
+    #Animaciones
+    - assets/loader_4balls.json
+
