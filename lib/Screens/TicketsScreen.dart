@@ -20,11 +20,8 @@ class _TicketScreenState extends State<TicketScreen> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            decoration: BoxDecoration(
-                color: bg_dfondo
-            ),
+            decoration: BoxDecoration(color: bg_dfondo),
             child: TabBar(
-
               tabs: [
                 Tab(
                   text: 'En Espera',
@@ -60,4 +57,3 @@ class _TicketScreenState extends State<TicketScreen> {
     );
   }
 }
-

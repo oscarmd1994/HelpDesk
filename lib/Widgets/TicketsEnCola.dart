@@ -3,6 +3,7 @@ import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
+import 'package:timeago/timeago.dart' as timeago;
 
 class EnCola extends StatefulWidget {
   @override
@@ -29,6 +30,13 @@ class _EnColaState extends State<EnCola> {
     super.initState();
   }
 
+  String _setTimeAgo(fecha) {
+    String time;
+    time = timeago.format(fecha, locale: 'es');
+
+    return time;
+  }
+
   Color colorFondo(Prioridad_id) {
     Color color;
     if (Prioridad_id == 1) {
@@ -52,7 +60,6 @@ class _EnColaState extends State<EnCola> {
     }
     return color;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +87,7 @@ class _EnColaState extends State<EnCola> {
               ),
             ],
           ),
-          padding:
-          EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
+          padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
           child: Slidable(
             actionPane: SlidableDrawerActionPane(),
             actionExtentRatio: 0.25,
@@ -98,7 +104,8 @@ class _EnColaState extends State<EnCola> {
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundColor: bg_white.withOpacity(0.8),
-                  child: Text(data[index].prioridadId.toString(),
+                  child: Text(
+                    data[index].prioridadId.toString(),
                     style: TextStyle(
                       color: bg_dark.withOpacity(0.9),
                       fontWeight: FontWeight.bold,
@@ -111,8 +118,7 @@ class _EnColaState extends State<EnCola> {
                   style: TextStyle(
                       color: bg_dark.withOpacity(0.8),
                       fontWeight: FontWeight.bold,
-                      fontSize: 18
-                  ),
+                      fontSize: 18),
                 ),
                 subtitle: Text(
                   data[index].descripcionProblema,
@@ -121,7 +127,7 @@ class _EnColaState extends State<EnCola> {
                   ),
                 ),
                 trailing: Text(
-                    '2067',
+                  _setTimeAgo(data[index].fechaCreacion),
                   style: TextStyle(
                     color: bg_dark,
                     fontWeight: FontWeight.bold,

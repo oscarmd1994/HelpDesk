@@ -10,13 +10,14 @@ final Color bg_addbutton = Colors.indigo[900];
 final Color bg_addbutton_2 = Colors.indigo[500];
 final Color bg_menu = Colors.teal[50];
 final Color bg_tittle = Colors.blueGrey[100];
-final Color bg_fondo_btn_menus =
-    Colors.indigo[200]; //Color.fromARGB(0xFF, 0x66, 0x6a, 0xd1);
+final Color bg_fondo_btn_menus = Colors.indigo[200];
+final Color bg_fondo_form = Colors.blueGrey[50];
 final Color bg_dfondo = Colors.blueGrey[900];
 final Color bg_dark = Colors.black;
 final Color bg_proceso = Colors.cyan[800];
 final Color bg_proceso_icon = Colors.teal[700];
-final Color bg_rojo = Colors.red;
+final Color bg_rojo = Color.fromARGB(0xff, 0x7f, 0x00, 0x00);
+final Color bg_light = Colors.blueGrey[200];
 
 final Color bg_fondo_important_ticket = Color.fromARGB(0xff, 0xf0, 0x55, 0x45);
 final Color bg_titulo_important_ticket =

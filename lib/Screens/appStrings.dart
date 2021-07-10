@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 //new ticket screen
 String title;
 String valorDropServicio;

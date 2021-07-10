@@ -1,9 +1,8 @@
 import 'dart:ui';
-import 'package:app_soporte/Screens/appColors.dart';
-import 'package:app_soporte/Screens/loginAdminScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:app_soporte/Screens/appColors.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -11,15 +10,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  Future<void> CloseSession() async {
+  Future<void> _CloseSession() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    if (await preferences.clear()) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => LoginScreenAdmin()),
-      );
-    } else {
-      print('no logout');
-    }
+    preferences.setString('user', "");
+    preferences.setString('pass', "");
+    //preferences.clear();
+    Navigator.pushReplacementNamed(context, 'login');
   }
 
   @override
@@ -183,41 +179,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Expanded(
                 child: SizedBox(),
               ),
-              GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: bg_rojo,
-                    ),
-                    height: 50.0,
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Center(
-                      child: Row(
-                        children: [
-                          Expanded(child: SizedBox()),
-                          Text(
-                            'Cerrar sesión ',
-                            style: TextStyle(
-                                fontSize: 20.0,
-                                color: bg_white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          //Expanded(child: SizedBox()),
-                          Icon(
-                            Icons.keyboard_return,
-                            color: bg_white,
-                          ),
-                          Expanded(child: SizedBox()),
-                        ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: MediaQuery.of(context).size.width * 0.2),
+                child: ElevatedButton(
+                  onPressed: () {
+                    _CloseSession();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.undo, color: bg_white),
+                      Text(
+                        ' Cerrar Sesión',
+                        style: TextStyle(
+                          color: bg_white,
+                          fontSize: 18,
+                        ),
                       ),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: bg_rojo,
+                    onPrimary: bg_dark,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 12.0,
                     ),
+                    elevation: 8,
                   ),
                 ),
-                onTap: () {
-                  CloseSession();
-                },
               ),
               Expanded(
                 child: SizedBox(),

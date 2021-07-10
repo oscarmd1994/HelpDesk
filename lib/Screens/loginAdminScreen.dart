@@ -51,25 +51,13 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('user', user);
     await prefs.setString('pass', pass);
-    print("termino share data");
   }
 
   Future<void> search_shared_data() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String VVuser = prefs.getString('user');
     String VVpass = prefs.getString('pass');
-
-    if (VVuser != "" && VVpass != "" || VVuser != null && VVpass != null) {
-      notification = "Bienvenido";
-      if (notification == "") {
-        ScaffoldMessenger.of(context).showSnackBar(
-          notifiValidacion("Error"),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          notifiValidacion(notification),
-        );
-      }
+    if (prefs.getString('user') != "" && prefs.getString('pass') != "") {
       Navigator.pushReplacementNamed(context, 'wait');
     }
   }
@@ -119,25 +107,25 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                         controller: userController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 1),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 1),
-                          ),
-                          labelText: "Correo",
-                          labelStyle:
-                              TextStyle(fontSize: 20.0, color: Colors.black),
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                        style: TextStyle(fontSize: 20.0, color: bg_black),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide:
+                                  BorderSide(color: Colors.blue, width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              borderSide:
+                                  BorderSide(color: Colors.blue, width: 1),
+                            ),
+                            labelText: "Correo",
+                            labelStyle:
+                                TextStyle(fontSize: 20.0, color: bg_dark),
+                            hintStyle: TextStyle(
+                              color: bg_light,
+                              fontSize: 20.0,
+                            ),
+                            hintText: 'Ingresa usuario'),
+                        style: TextStyle(fontSize: 20.0, color: bg_dark),
                       ),
                       SizedBox(
                         height: 20.0,
@@ -157,12 +145,12 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                                 BorderSide(color: Colors.blue, width: 1),
                           ),
                           labelText: "Contraseña",
-                          labelStyle:
-                              TextStyle(fontSize: 20.0, color: Colors.black),
+                          labelStyle: TextStyle(fontSize: 20.0, color: bg_dark),
                           hintStyle: TextStyle(
-                            color: Colors.white,
+                            color: bg_light,
                             fontSize: 20.0,
                           ),
+                          hintText: 'Ingresa contraseña',
                         ),
                         style: TextStyle(fontSize: 20.0),
                       ),
