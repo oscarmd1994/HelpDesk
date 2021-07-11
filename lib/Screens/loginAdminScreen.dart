@@ -42,7 +42,16 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
 
   SnackBar notifiValidacion(String text) {
     final snackBar = SnackBar(
-      content: Text(text),
+      backgroundColor: bg_dark.withOpacity(0.8),
+      content: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: bg_white),
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
     );
     return snackBar;
   }

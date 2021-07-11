@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:app_soporte/Screens/TicketsScreen.dart';
-import 'package:app_soporte/Screens/newTicketsScreen.dart';
-import 'package:app_soporte/Screens/profileScreen.dart';
+import 'TicketsScreen.dart';
+import 'newTicketsScreen.dart';
+import 'profileScreen.dart';
 import 'HistorialScreen.dart';
 import 'appColors.dart';
 

@@ -32,7 +32,7 @@ dependencies:
   hidden_drawer_menu: ^2.0.1
   http: ^0.13.0
   jumping_bottom_nav_bar: ^0.1.0
-  lottie: ^1.0.1
+  lottie: ^1.1.0
   shared_preferences: ^2.0.6
   shimmer: ^2.0.0
   timeago: ^3.1.0
@@ -72,3 +72,4 @@ flutter:
 
     #Animaciones
     - assets/loader_4balls.json
+    - assets/robot.json

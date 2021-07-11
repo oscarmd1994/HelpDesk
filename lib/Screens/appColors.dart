@@ -20,8 +20,7 @@ final Color bg_rojo = Color.fromARGB(0xff, 0x7f, 0x00, 0x00);
 final Color bg_light = Colors.blueGrey[200];
 
 final Color bg_fondo_important_ticket = Color.fromARGB(0xff, 0xf0, 0x55, 0x45);
-final Color bg_titulo_important_ticket =
-    Color.fromRGBO(192, 57, 43, 1.0); //Color.fromARGB(0xff, 0x9b, 0x00, 0x00);
+final Color bg_titulo_important_ticket = Color.fromRGBO(192, 57, 43, 1.0);
 final Color bg_fondo_medium_ticket = Color.fromARGB(0xff, 0xff, 0xb7, 0x4d);
 final Color bg_titulo_medium_ticket = Color.fromARGB(0xff, 0xff, 0x98, 0x00);
 final Color bg_fondo_less_ticket = Color.fromARGB(0xff, 0x60, 0xad, 0x5e);

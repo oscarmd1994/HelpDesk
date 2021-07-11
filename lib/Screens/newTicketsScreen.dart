@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:app_soporte/Models/RespuestasBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
 import 'package:app_soporte/Data/accesosWS.dart';
 import 'package:app_soporte/Models/EmpresasBean.dart';
@@ -19,10 +20,16 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
   List<Empresas> empresas;
   List<Prioridades> prioridades;
   Color bg_dropPrioridades;
-  bool isEmpty = true;
+  bool isEmpty;
+  Respuestas response;
+  //form variables
+  TextEditingController cometarioscontroller;
 
+  //form variables
   @override
   void initState() {
+    isEmpty = true;
+    cometarioscontroller = TextEditingController();
     bg_dropPrioridades = bg_white;
     // INICIALIZA DROPD DE SERVICIOS
     getServicios().then((value) {
@@ -153,10 +160,18 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                 InkWell(
                   onTap: () {
                     if (isEmpty == true) {
-                      //_itemvacio();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Seleccione un tipo de servicio!'),
+                          backgroundColor: bg_dark.withOpacity(0.8),
+                          content: Text(
+                            'Selecciona primero un servicio!',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: bg_white),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
                         ),
                       );
                     }
@@ -212,9 +227,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                 ),
                 // DROPDOWN DE Modalidades
 
-                SizedBox(
-                  height: 20.0,
-                ),
+                SizedBox(height: 20.0),
 
                 // DROPDOWN DE EMPRESAS
                 Text(
@@ -323,11 +336,10 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                 ),
                 // DROPDOWN DE PRIORIDAD
 
-                SizedBox(
-                  height: 20.0,
-                ),
+                SizedBox(height: 20.0),
 
                 TextField(
+                  controller: cometarioscontroller,
                   keyboardType: TextInputType.multiline,
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -356,11 +368,11 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   style: TextStyle(fontSize: 18.0, color: Colors.black),
                 ),
 
-                SizedBox(
-                  height: 20.0,
-                ),
+                Expanded(child: SizedBox()),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //validaNewTicket();
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -378,6 +390,9 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                     primary: bg_rojo,
                     onPrimary: bg_dark,
                     padding: EdgeInsets.symmetric(vertical: 12.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
                     elevation: 8,
                   ),
                 ),

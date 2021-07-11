@@ -182,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 8.0,
-                    horizontal: MediaQuery.of(context).size.width * 0.2),
+                    horizontal: MediaQuery.of(context).size.width * 0.1),
                 child: ElevatedButton(
                   onPressed: () {
                     _CloseSession();
@@ -203,10 +203,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: ElevatedButton.styleFrom(
                     primary: bg_rojo,
                     onPrimary: bg_dark,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 12.0,
-                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12.0),
                     elevation: 8,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
                   ),
                 ),
               ),
