@@ -1,3 +1,5 @@
+import 'package:app_soporte/Models/UserDataBean.dart';
+import 'package:app_soporte/Models/UsuariosBean.dart';
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/RespuestasBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
@@ -40,6 +42,22 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
     }
   }
 
+  Future<UserData> getUserData(String user, String pass) async {
+    final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/TUsuarios";
+    var response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {
+        'Content-Type': 'charset=UTF-8',
+      },
+      body: {"user": user, "pass": pass},
+    );
+    if (response.statusCode == 200) {
+      return userDataFromJson(response.body);
+    } else {
+      return null;
+    }
+  }
+
   SnackBar notifiValidacion(String text) {
     final snackBar = SnackBar(
       backgroundColor: bg_dark.withOpacity(0.8),
@@ -58,8 +76,17 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
 
   Future<void> save_share_data(user, pass) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    UserData userData = await getUserData(user, pass);
+    print(userData);
     await prefs.setString('user', user);
     await prefs.setString('pass', pass);
+    await prefs.setString('idUsuario', userData.idUsuario);
+    await prefs.setString('nombre', userData.nombre);
+    await prefs.setString('paterno', userData.paterno);
+    await prefs.setString('materno', userData.materno);
+    await prefs.setString('email', userData.email);
+    await prefs.setString('tipoUser', userData.tipoUser);
+    await prefs.setString('tipoUserId', userData.tipoUserId);
   }
 
   Future<void> search_shared_data() async {
@@ -73,7 +100,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    search_shared_data();
+    //search_shared_data();
     return Scaffold(
       backgroundColor: bg_white,
       body: SafeArea(

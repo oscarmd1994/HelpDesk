@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:app_soporte/Data/accesosWS.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +11,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  SharedPreferences prefs;
+
+  @override
+  void initState() {
+    getprefs();
+    super.initState();
+  }
+
+  void getprefs() async {
+    prefs = await getSharePreferences();
+  }
+
   Future<void> _CloseSession() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('user', "");
@@ -113,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Text(
-                    "oscarm@raciti.com.mx",
+                    prefs.getString('email'),
                   ),
                 ],
               ),
@@ -126,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Text(
-                    "5613791062",
+                    prefs.getString('tipoUser'),
                   ),
                 ],
               ),

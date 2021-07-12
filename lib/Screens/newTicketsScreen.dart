@@ -1,3 +1,4 @@
+import 'package:app_soporte/Models/NewTicketBean.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:app_soporte/Models/RespuestasBean.dart';
@@ -7,6 +8,8 @@ import 'package:app_soporte/Models/EmpresasBean.dart';
 import 'package:app_soporte/Models/ModalidadesBean.dart';
 import 'package:app_soporte/Models/PrioridadesBean.dart';
 import 'package:app_soporte/Models/TipoServicioBean.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'appStrings.dart';
 
 class NewTicketsScreen extends StatefulWidget {
@@ -22,6 +25,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
   Color bg_dropPrioridades;
   bool isEmpty;
   Respuestas response;
+  SharedPreferences prefs;
   //form variables
   TextEditingController cometarioscontroller;
 
@@ -49,17 +53,37 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
         prioridades = value;
       });
     });
+    getprefs();
     super.initState();
   }
 
   // LLENA EN DROPD DEPENDIENDO DE LA SELECCION DEL SERVICIO
   void cargaModalidades() {
-    getModalidades(valorDropServicio).then((value) {
+    getModalidades(valorDropServicio).then((value) async {
       setState(() {
         modalidades = value;
         isEmpty = false;
       });
     });
+  }
+
+  void getprefs() async {
+    prefs = await getSharePreferences();
+  }
+
+  SnackBar customsnackbar(String text) {
+    return SnackBar(
+      backgroundColor: bg_dark.withOpacity(0.8),
+      content: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: bg_white),
+      ),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+      ),
+    );
   }
 
   // CAMBIA EL COLOR DEL DROP SEGUN LA PRIORIDAD
@@ -77,6 +101,42 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
     setState(() {
       bg_dropPrioridades = color;
     });
+  }
+
+  // CARGA VALIDACION DEL FORM PARA GUARDAR TICKET
+  void validaNewTicket() async {
+    NewTicket newTicket;
+
+    if (valorDropServicio == null ||
+        valorDropModalidad == null ||
+        valorDropEmpresa == null ||
+        valorDropPrioridad == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        customsnackbar('Llena correctamente el formulario'),
+      );
+    } else {
+      newTicket.userSolicitanteId = prefs.getString('idUsuario');
+      newTicket.empresaId = valorDropEmpresa;
+      newTicket.modalidadId = valorDropModalidad;
+      newTicket.descripcionProblema = cometarioscontroller.text;
+      print(newTicket);
+
+      response = await postSaveNewTicket(prefs.getString('idUsuario'),
+          valorDropEmpresa, valorDropModalidad, cometarioscontroller.text);
+      if (response == null) {
+        customsnackbar('Error ');
+      } else {
+        if (int.parse(response.iFlag) != 0) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            customsnackbar('Llena correctamente el formulario'),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            customsnackbar('Se agrego correctamente el ticket'),
+          );
+        }
+      }
+    }
   }
 
   @override
@@ -154,25 +214,12 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                SizedBox(height: 10.0),
                 InkWell(
                   onTap: () {
                     if (isEmpty == true) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: bg_dark.withOpacity(0.8),
-                          content: Text(
-                            'Selecciona primero un servicio!',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: bg_white),
-                          ),
-                          behavior: SnackBarBehavior.floating,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                        ),
+                        customsnackbar('Selecciona primero un servicio!'),
                       );
                     }
                   },
@@ -238,9 +285,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                SizedBox(height: 10.0),
                 Container(
                   padding: EdgeInsets.only(
                     left: 16,
@@ -291,9 +336,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                SizedBox(height: 10.0),
                 Container(
                   padding: EdgeInsets.only(
                     left: 16,
@@ -371,7 +414,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                 Expanded(child: SizedBox()),
                 ElevatedButton(
                   onPressed: () {
-                    //validaNewTicket();
+                    validaNewTicket();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
