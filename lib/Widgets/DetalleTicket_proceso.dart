@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DetallesTicket_proceso extends StatefulWidget {
+class DetallesTicketProceso extends StatefulWidget {
   @override
-  _DetallesTicket_procesoState createState() => _DetallesTicket_procesoState();
+  _DetallesTicketProcesoState createState() => _DetallesTicketProcesoState();
 }
 
-class _DetallesTicket_procesoState extends State<DetallesTicket_proceso> {
+class _DetallesTicketProcesoState extends State<DetallesTicketProceso> {
   @override
   Widget build(BuildContext context) {
     return Container();

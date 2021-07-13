@@ -29,13 +29,13 @@ class _HistorialScreenState extends State<HistorialScreen> {
     super.initState();
   }
 
-  Color colorFondo(Prioridad_id) {
+  Color colorFondo(prioridadId) {
     Color color;
-    if (Prioridad_id == 1) {
+    if (prioridadId == 1) {
       color = bg_fondo_important_ticket;
-    } else if (Prioridad_id == 2) {
+    } else if (prioridadId == 2) {
       color = bg_titulo_medium_ticket;
-    } else if (Prioridad_id == 3) {
+    } else if (prioridadId == 3) {
       color = bg_fondo_less_ticket;
     }
     return color;

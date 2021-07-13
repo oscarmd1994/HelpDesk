@@ -29,30 +29,29 @@ class _AplazadosState extends State<Aplazados> {
     super.initState();
   }
 
-  Color colorFondo(Prioridad_id) {
+  Color colorFondo(prioridadId) {
     Color color;
-    if (Prioridad_id == 1) {
+    if (prioridadId == 1) {
       color = bg_fondo_important_ticket;
-    } else if (Prioridad_id == 2) {
+    } else if (prioridadId == 2) {
       color = bg_fondo_medium_ticket;
-    } else if (Prioridad_id == 3) {
+    } else if (prioridadId == 3) {
       color = bg_fondo_less_ticket;
     }
     return color;
   }
 
-  Color colorTitulo(Prioridad_id) {
+  Color colorTitulo(prioridadId) {
     Color color;
-    if (Prioridad_id == 1) {
+    if (prioridadId == 1) {
       color = bg_titulo_important_ticket;
-    } else if (Prioridad_id == 2) {
+    } else if (prioridadId == 2) {
       color = bg_titulo_medium_ticket;
-    } else if (Prioridad_id == 3) {
+    } else if (prioridadId == 3) {
       color = bg_titulo_less_ticket;
     }
     return color;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +79,7 @@ class _AplazadosState extends State<Aplazados> {
               ),
             ],
           ),
-          padding:
-          EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
+          padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
           child: Slidable(
             actionPane: SlidableDrawerActionPane(),
             actionExtentRatio: 0.25,
@@ -98,7 +96,8 @@ class _AplazadosState extends State<Aplazados> {
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundColor: bg_white.withOpacity(0.8),
-                  child: Text(data[index].prioridadId.toString(),
+                  child: Text(
+                    data[index].prioridadId.toString(),
                     style: TextStyle(
                       color: bg_dark.withOpacity(0.9),
                       fontWeight: FontWeight.bold,
@@ -111,8 +110,7 @@ class _AplazadosState extends State<Aplazados> {
                   style: TextStyle(
                       color: bg_dark.withOpacity(0.8),
                       fontWeight: FontWeight.bold,
-                      fontSize: 18
-                  ),
+                      fontSize: 18),
                 ),
                 subtitle: Text(
                   data[index].descripcionProblema,

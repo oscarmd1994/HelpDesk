@@ -1,4 +1,3 @@
-import 'package:app_soporte/Models/NewTicketBean.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:app_soporte/Models/RespuestasBean.dart';
@@ -8,7 +7,6 @@ import 'package:app_soporte/Models/EmpresasBean.dart';
 import 'package:app_soporte/Models/ModalidadesBean.dart';
 import 'package:app_soporte/Models/PrioridadesBean.dart';
 import 'package:app_soporte/Models/TipoServicioBean.dart';
-import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'appStrings.dart';
 
@@ -22,7 +20,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
   List<Modalidades> modalidades;
   List<Empresas> empresas;
   List<Prioridades> prioridades;
-  Color bg_dropPrioridades;
+  Color bgDropPrioridades;
   bool isEmpty;
   Respuestas response;
   SharedPreferences prefs;
@@ -34,7 +32,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
   void initState() {
     isEmpty = true;
     cometarioscontroller = TextEditingController();
-    bg_dropPrioridades = bg_white;
+    bgDropPrioridades = bg_white;
     // INICIALIZA DROPD DE SERVICIOS
     getServicios().then((value) {
       setState(() {
@@ -69,6 +67,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
 
   void getprefs() async {
     prefs = await getSharePreferences();
+    userid = prefs.getString('idUsuario');
   }
 
   SnackBar customsnackbar(String text) {
@@ -99,14 +98,12 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
     }
 
     setState(() {
-      bg_dropPrioridades = color;
+      bgDropPrioridades = color;
     });
   }
 
   // CARGA VALIDACION DEL FORM PARA GUARDAR TICKET
   void validaNewTicket() async {
-    NewTicket newTicket;
-
     if (valorDropServicio == null ||
         valorDropModalidad == null ||
         valorDropEmpresa == null ||
@@ -115,26 +112,23 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
         customsnackbar('Llena correctamente el formulario'),
       );
     } else {
-      newTicket.userSolicitanteId = prefs.getString('idUsuario');
-      newTicket.empresaId = valorDropEmpresa;
-      newTicket.modalidadId = valorDropModalidad;
-      newTicket.descripcionProblema = cometarioscontroller.text;
-      print(newTicket);
-
-      response = await postSaveNewTicket(prefs.getString('idUsuario'),
-          valorDropEmpresa, valorDropModalidad, cometarioscontroller.text);
+      response = await postSaveNewTicket(userid, valorDropEmpresa,
+          valorDropModalidad, cometarioscontroller.text);
       if (response == null) {
         customsnackbar('Error ');
       } else {
         if (int.parse(response.iFlag) != 0) {
           ScaffoldMessenger.of(context).showSnackBar(
             customsnackbar('Llena correctamente el formulario'),
+            //customsnackbar(response.sMessage.toString()),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             customsnackbar('Se agrego correctamente el ticket'),
+            //customsnackbar(response.sMessage.toString()),
           );
         }
+        customsnackbar(' termino y Nada');
       }
     }
   }
@@ -343,7 +337,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                     right: 16,
                   ),
                   decoration: BoxDecoration(
-                    color: bg_dropPrioridades,
+                    color: bgDropPrioridades,
                     border: Border.all(color: bg_dark, width: 1),
                     borderRadius: BorderRadius.circular(15),
                   ),

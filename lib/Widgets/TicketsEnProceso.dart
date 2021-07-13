@@ -29,25 +29,25 @@ class _EnProcesoState extends State<EnProceso> {
     super.initState();
   }
 
-  Color colorFondo(Prioridad_id) {
+  Color colorFondo(prioridadId) {
     Color color;
-    if (Prioridad_id == 1) {
+    if (prioridadId == 1) {
       color = bg_fondo_important_ticket;
-    } else if (Prioridad_id == 2) {
+    } else if (prioridadId == 2) {
       color = bg_fondo_medium_ticket;
-    } else if (Prioridad_id == 3) {
+    } else if (prioridadId == 3) {
       color = bg_fondo_less_ticket;
     }
     return color;
   }
 
-  Color colorTitulo(Prioridad_id) {
+  Color colorTitulo(prioridadId) {
     Color color;
-    if (Prioridad_id == 1) {
+    if (prioridadId == 1) {
       color = bg_titulo_important_ticket;
-    } else if (Prioridad_id == 2) {
+    } else if (prioridadId == 2) {
       color = bg_titulo_medium_ticket;
-    } else if (Prioridad_id == 3) {
+    } else if (prioridadId == 3) {
       color = bg_titulo_less_ticket;
     }
     return color;
@@ -77,8 +77,7 @@ class _EnProcesoState extends State<EnProceso> {
               ),
             ],
           ),
-          padding:
-          EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
+          padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
           child: Slidable(
             actionPane: SlidableDrawerActionPane(),
             actionExtentRatio: 0.25,
@@ -93,12 +92,11 @@ class _EnProcesoState extends State<EnProceso> {
                 ),
               ),
               child: ListTile(
-                onTap: (){
-
-                },
+                onTap: () {},
                 leading: CircleAvatar(
                   backgroundColor: bg_proceso_icon,
-                  child: Text(data[index].prioridadId.toString(),
+                  child: Text(
+                    data[index].prioridadId.toString(),
                     style: TextStyle(
                       color: bg_white.withOpacity(0.9),
                       fontWeight: FontWeight.bold,
@@ -111,8 +109,7 @@ class _EnProcesoState extends State<EnProceso> {
                   style: TextStyle(
                       color: bg_dark.withOpacity(0.8),
                       fontWeight: FontWeight.bold,
-                      fontSize: 18
-                  ),
+                      fontSize: 18),
                 ),
                 subtitle: Text(
                   data[index].descripcionProblema,
@@ -121,10 +118,9 @@ class _EnProcesoState extends State<EnProceso> {
                   ),
                 ),
                 trailing: Text(
-                  'El Beni',//data[index].usuarioAsignado,
+                  'El Beni', //data[index].usuarioAsignado,
                   style: TextStyle(
                     color: bg_dark,
-
                   ),
                 ),
               ),
@@ -163,4 +159,3 @@ class _EnProcesoState extends State<EnProceso> {
     );
   }
 }
-

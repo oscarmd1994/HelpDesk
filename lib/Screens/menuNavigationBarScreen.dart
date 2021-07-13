@@ -1,4 +1,8 @@
 import 'dart:ui';
+import 'package:app_soporte/Data/accesosWS.dart';
+import 'package:app_soporte/Screens/appStrings.dart';
+import 'package:app_soporte/Widgets/errorPage.dart';
+import 'package:app_soporte/Widgets/loadPage.dart';
 import 'package:flutter/material.dart';
 import 'TicketsScreen.dart';
 import 'newTicketsScreen.dart';
@@ -19,6 +23,13 @@ class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
   int _currentIndex = 0;
   Widget selectedScreen = TicketScreen();
   String titulo = "Inicio";
+
+  @override
+  void initState() {
+    //saveDataEmp();
+    super.initState();
+  }
+
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
@@ -37,45 +48,60 @@ class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        backgroundColor: bg_dfondo,
-        title: Text(
-          titulo,
-          style: TextStyle(
-            fontSize: 20.0,
-            color: bg_white,
-          ),
-        ),
-        brightness: Brightness.dark,
-      ),
-      body: selectedScreen,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: bg_secondary,
-        selectedItemColor: bg_addbutton,
-        unselectedItemColor: bg_fondo_btn_menus,
-        onTap: onTabTapped,
-        currentIndex: _currentIndex,
-        type: BottomNavigationBarType.shifting,
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            label: 'Inicio',
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.person),
-            label: 'Perfil',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.restore_sharp), label: 'Historial'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle),
-            label: 'Agregar Ticket',
-          ),
-        ],
-      ),
+    return FutureBuilder(
+      future: saveDataEmp(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        Widget screen;
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          screen = LoadPage();
+        } else if (snapshot.connectionState == ConnectionState.none) {
+          errorText = "REVIZA TU CONEXÓN A INTERNET";
+          screen = ErrorPage();
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          screen = Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              backgroundColor: bg_dfondo,
+              title: Text(
+                titulo,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: bg_white,
+                ),
+              ),
+              brightness: Brightness.dark,
+            ),
+            body: selectedScreen,
+            bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: bg_secondary,
+              selectedItemColor: bg_addbutton,
+              unselectedItemColor: bg_fondo_btn_menus,
+              onTap: onTabTapped,
+              currentIndex: _currentIndex,
+              type: BottomNavigationBarType.shifting,
+              items: [
+                BottomNavigationBarItem(
+                  icon: new Icon(Icons.home),
+                  label: 'Inicio',
+                ),
+                BottomNavigationBarItem(
+                  icon: new Icon(Icons.person),
+                  label: 'Perfil',
+                ),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.restore_sharp), label: 'Historial'),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.add_circle),
+                  label: 'Agregar Ticket',
+                ),
+              ],
+            ),
+          );
+        }
+
+        return screen;
+      },
     );
   }
 }

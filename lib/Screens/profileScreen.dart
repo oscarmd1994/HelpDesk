@@ -1,9 +1,12 @@
 import 'dart:ui';
 import 'package:app_soporte/Data/accesosWS.dart';
+import 'package:app_soporte/Widgets/errorPage.dart';
+import 'package:app_soporte/Widgets/loadPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:app_soporte/Screens/appColors.dart';
+import 'package:app_soporte/Screens/appStrings.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -12,6 +15,13 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   SharedPreferences prefs;
+  /* String userid;
+  String name;
+  String apellidos;
+  String tuserid;
+  String tuser;
+  String email;
+  String user; */
 
   @override
   void initState() {
@@ -21,9 +31,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void getprefs() async {
     prefs = await getSharePreferences();
+
+    userid = prefs.getString('idUsuario');
+    name = prefs.getString('nombre');
+    apellidos = '${prefs.getString('paterno')} ${prefs.getString('materno')}';
+    tuserid = prefs.getString('tipoUser');
+    user = prefs.getString('user');
+    tuser = prefs.getString('tipoUser');
+    email = prefs.getString('email');
   }
 
-  Future<void> _CloseSession() async {
+  Future<void> _closeSession() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('user', "");
     preferences.setString('pass', "");
@@ -34,79 +52,93 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultTabController(
-        length: 1,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverAppBar(
-                backgroundColor: Colors.black,
-                expandedHeight: 200.0,
-                floating: false,
-                pinned: true,
-                automaticallyImplyLeading: false,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  title: Text("Oscar Mejia Doroteo",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                      )),
-                  background: Stack(children: <Widget>[
-                    Image(
-                        image: AssetImage("images/oficina1.jpg"),
-                        width: double.infinity,
-                        height: double.infinity,
-                        fit: BoxFit.fill),
-                    Positioned(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                        child: Container(
-                          color: Colors.black.withOpacity(0.5),
+      body: FutureBuilder(
+          future: getSharePreferences(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            Widget screen;
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              screen = LoadPage();
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              screen = DefaultTabController(
+                length: 1,
+                child: NestedScrollView(
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverAppBar(
+                        backgroundColor: Colors.black,
+                        expandedHeight: 200.0,
+                        floating: false,
+                        pinned: true,
+                        automaticallyImplyLeading: false,
+                        flexibleSpace: FlexibleSpaceBar(
+                          centerTitle: true,
+                          title: Text('$name $apellidos',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
+                              )),
+                          background: Stack(children: <Widget>[
+                            Image(
+                                image: AssetImage("images/oficina1.jpg"),
+                                width: double.infinity,
+                                height: double.infinity,
+                                fit: BoxFit.fill),
+                            Positioned(
+                              child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                                child: Container(
+                                  color: Colors.black.withOpacity(0.5),
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 52,
+                                  child: CircleAvatar(
+                                    radius: 50.0,
+                                    backgroundImage:
+                                        AssetImage("images/user.png"),
+                                    backgroundColor: Colors.white,
+                                  )),
+                            ),
+                          ]),
                         ),
                       ),
-                    ),
-                    Center(
-                      child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 52,
-                          child: CircleAvatar(
-                            radius: 50.0,
-                            backgroundImage: AssetImage("images/user.png"),
-                            backgroundColor: Colors.white,
-                          )),
-                    ),
-                  ]),
-                ),
-              ),
-              SliverPersistentHeader(
-                delegate: _SliverAppBarDelegate(
-                  TabBar(
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Colors.grey[600],
-                    indicatorColor: Colors.white,
-                    tabs: [
-                      Tab(icon: Icon(Icons.info), text: "Información"),
-                      //Tab(icon: Icon(Icons.edit), text: "Editar"),
+                      SliverPersistentHeader(
+                        delegate: _SliverAppBarDelegate(
+                          TabBar(
+                            labelColor: Colors.white,
+                            unselectedLabelColor: Colors.grey[600],
+                            indicatorColor: Colors.white,
+                            tabs: [
+                              Tab(icon: Icon(Icons.info), text: "Información"),
+                              //Tab(icon: Icon(Icons.edit), text: "Editar"),
+                            ],
+                          ),
+                        ),
+                        pinned: true,
+                      ),
+                    ];
+                  },
+                  body: TabBarView(
+                    children: [
+                      firstTab(),
+                      //secondTab(),
                     ],
                   ),
                 ),
-                pinned: true,
-              ),
-            ];
-          },
-          body: TabBarView(
-            children: [
-              first_tab(),
-              //second_tab(),
-            ],
-          ),
-        ),
-      ),
+              );
+            } else if (snapshot.connectionState == ConnectionState.none) {
+              screen = ErrorPage();
+            }
+            return screen;
+          }),
     );
   }
 
-  Widget first_tab() {
+  Widget firstTab() {
     return Container(
       padding: new EdgeInsets.only(top: 10, right: 20.0, left: 20.0),
       child: new Container(
@@ -125,9 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icons.email,
                     ),
                   ),
-                  Text(
-                    prefs.getString('email'),
-                  ),
+                  Text(email),
                 ],
               ),
               Row(
@@ -135,12 +165,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
-                      Icons.phone,
+                      Icons.business_center,
                     ),
                   ),
-                  Text(
-                    prefs.getString('tipoUser'),
-                  ),
+                  Text(tuser),
                 ],
               ),
               Row(
@@ -148,15 +176,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
-                      Icons.person,
+                      Icons.account_circle,
                     ),
                   ),
-                  Text(
-                    "oscarm",
-                  ),
+                  Text(user),
                 ],
               ),
-              Row(
+              /*Row(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -188,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
                 ],
-              ),
+              ),*/
               Expanded(
                 child: SizedBox(),
               ),
@@ -198,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     horizontal: MediaQuery.of(context).size.width * 0.1),
                 child: ElevatedButton(
                   onPressed: () {
-                    _CloseSession();
+                    _closeSession();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -234,7 +260,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget second_tab() {
+  Widget secondTab() {
     return Container();
   }
 }

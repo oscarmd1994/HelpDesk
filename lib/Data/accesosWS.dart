@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'package:app_soporte/Models/EmpresasBean.dart';
 import 'package:app_soporte/Models/ModalidadesBean.dart';
-import 'package:app_soporte/Models/NewTicketBean.dart';
 import 'package:app_soporte/Models/PrioridadesBean.dart';
 import 'package:app_soporte/Models/RespuestasBean.dart';
 import 'package:app_soporte/Models/TicketsBean.dart';
@@ -67,20 +67,21 @@ Future<List<Prioridades>> getPrioridades() async {
 /////////////////////////////////////////
 Future<Respuestas> postSaveNewTicket(String usuarioSolicitanteId,
     String empresaId, String modalidadId, String descripcionProblema) async {
-  final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/TTickets";
+  final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/Tickets";
   var response = await http.post(
     Uri.parse(apiUrl),
     headers: {
       //<String, String>
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: {
+    body: jsonEncode({
       "User_solicitante_id": usuarioSolicitanteId,
       "Empresa_id": empresaId,
       "Modalidad_id": modalidadId,
       "Descripcion_problema": descripcionProblema
-    },
+    }),
   );
+  print(response.body);
   if (response.statusCode == 200) {
     return respuestasFromJson(response.body);
   } else {
@@ -88,7 +89,37 @@ Future<Respuestas> postSaveNewTicket(String usuarioSolicitanteId,
   }
 }
 
+Future<UserData> getUserData(String user, String pass) async {
+  final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/TUsuarios";
+  var response = await http.post(
+    Uri.parse(apiUrl),
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode({"user": user, "pass": pass}),
+  );
+  if (response.statusCode == 200) {
+    return userDataFromJson(response.body);
+  } else {
+    return null;
+  }
+}
+
 Future<SharedPreferences> getSharePreferences() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //await saveDataEmp();
   return prefs;
+}
+
+Future<void> saveDataEmp() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  UserData userData =
+      await getUserData(prefs.getString('user'), prefs.getString('pass'));
+  await prefs.setString('idUsuario', userData.idUsuario);
+  await prefs.setString('nombre', userData.nombre);
+  await prefs.setString('paterno', userData.paterno);
+  await prefs.setString('materno', userData.materno);
+  await prefs.setString('email', userData.email);
+  await prefs.setString('tipoUser', userData.tipoUser);
+  await prefs.setString('tipoUserId', userData.tipoUserId);
 }

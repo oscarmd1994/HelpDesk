@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DetallesTicket_cola extends StatefulWidget {
+class DetallesTicketCola extends StatefulWidget {
   @override
-  _DetallesTicket_colaState createState() => _DetallesTicket_colaState();
+  _DetallesTicketColaState createState() => _DetallesTicketColaState();
 }
 
-class _DetallesTicket_colaState extends State<DetallesTicket_cola> {
+class _DetallesTicketColaState extends State<DetallesTicketCola> {
   @override
   Widget build(BuildContext context) {
     return Container();

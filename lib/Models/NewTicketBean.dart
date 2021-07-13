@@ -25,9 +25,9 @@ class NewTicket {
       );
 
   Map<String, dynamic> toJson() => {
-        "user_solicitante_id": userSolicitanteId,
-        "empresa_id": empresaId,
-        "modalidad_id": modalidadId,
-        "descripcion_problema": descripcionProblema,
+        "User_solicitante_id": userSolicitanteId,
+        "Empresa_id": empresaId,
+        "Modalidad_id": modalidadId,
+        "Descripcion_problema": descripcionProblema,
       };
 }

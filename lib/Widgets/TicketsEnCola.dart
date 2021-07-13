@@ -1,3 +1,5 @@
+import 'package:app_soporte/Widgets/errorPage.dart';
+import 'package:app_soporte/Widgets/loadPage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
@@ -37,25 +39,25 @@ class _EnColaState extends State<EnCola> {
     return time;
   }
 
-  Color colorFondo(Prioridad_id) {
+  Color colorFondo(prioridadId) {
     Color color;
-    if (Prioridad_id == 1) {
+    if (prioridadId == 1) {
       color = bg_fondo_important_ticket;
-    } else if (Prioridad_id == 2) {
+    } else if (prioridadId == 2) {
       color = bg_fondo_medium_ticket;
-    } else if (Prioridad_id == 3) {
+    } else if (prioridadId == 3) {
       color = bg_fondo_less_ticket;
     }
     return color;
   }
 
-  Color colorTitulo(Prioridad_id) {
+  Color colorTitulo(prioridadId) {
     Color color;
-    if (Prioridad_id == 1) {
+    if (prioridadId == 1) {
       color = bg_titulo_important_ticket;
-    } else if (Prioridad_id == 2) {
+    } else if (prioridadId == 2) {
       color = bg_titulo_medium_ticket;
-    } else if (Prioridad_id == 3) {
+    } else if (prioridadId == 3) {
       color = bg_titulo_less_ticket;
     }
     return color;
@@ -64,7 +66,6 @@ class _EnColaState extends State<EnCola> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      //scrollDirection: Axis.vertical,
       shrinkWrap: true,
       padding: EdgeInsets.all(2.0),
       itemCount: data.length,

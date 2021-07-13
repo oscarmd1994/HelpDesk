@@ -83,22 +83,19 @@ class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
 ///////////////////////////////
 ///////////////////////////////
 
-class SelectedScreen {
-  static Widget screen;
-}
-
 Widget getScreen(index) {
+  Widget w;
   if (index == 0) {
-    return TicketScreen();
+    w = TicketScreen();
   }
   if (index == 1) {
-    return ProfileScreen();
+    w = ProfileScreen();
   }
   if (index == 2) {
-    return HistorialScreen();
+    w = HistorialScreen();
   }
   if (index == 3) {
-    return NewTicketsScreen();
+    w = NewTicketsScreen();
   }
-  //return SelectedScreen.Screen;
+  return w;
 }
