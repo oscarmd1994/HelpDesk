@@ -12,5 +12,6 @@ String tuser;
 String tuserid;
 String email;
 String user;
+String contra;
 //
 String errorText = "";

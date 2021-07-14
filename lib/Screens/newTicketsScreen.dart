@@ -105,9 +105,11 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
   // CARGA VALIDACION DEL FORM PARA GUARDAR TICKET
   void validaNewTicket() async {
     if (valorDropServicio == null ||
-        valorDropModalidad == null ||
-        valorDropEmpresa == null ||
-        valorDropPrioridad == null) {
+            valorDropModalidad == null ||
+            valorDropEmpresa ==
+                null /* ||
+        valorDropPrioridad == null */
+        ) {
       ScaffoldMessenger.of(context).showSnackBar(
         customsnackbar('Llena correctamente el formulario'),
       );
@@ -117,18 +119,19 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
       if (response == null) {
         customsnackbar('Error ');
       } else {
-        if (int.parse(response.iFlag) != 0) {
+        if (int.parse(response.iFlag) == 0) {
           ScaffoldMessenger.of(context).showSnackBar(
-            customsnackbar('Llena correctamente el formulario'),
-            //customsnackbar(response.sMessage.toString()),
+            //customsnackbar('Llena correctamente el formulario'),
+            customsnackbar(response.sMessage.toString()),
           );
+          Navigator.pushReplacementNamed(context, 'home');
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            customsnackbar('Se agrego correctamente el ticket'),
-            //customsnackbar(response.sMessage.toString()),
+            //customsnackbar('Se agrego correctamente el ticket'),
+            customsnackbar(response.sMessage.toString()),
           );
         }
-        customsnackbar(' termino y Nada');
+        //customsnackbar(' termino y Nada');
       }
     }
   }
@@ -322,7 +325,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                 // DROPDOWN DE EMPRESAS
                 SizedBox(height: 20.0),
                 // DROPDOWN DE PRIORIDAD
-                Text(
+                /* Text(
                   "Prioridad",
                   style: TextStyle(
                     color: Colors.black,
@@ -374,7 +377,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                 // DROPDOWN DE PRIORIDAD
 
                 SizedBox(height: 20.0),
-
+ */
                 TextField(
                   controller: cometarioscontroller,
                   keyboardType: TextInputType.multiline,

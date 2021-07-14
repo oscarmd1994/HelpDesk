@@ -1,5 +1,6 @@
 import 'package:app_soporte/Widgets/errorPage.dart';
 import 'package:app_soporte/Widgets/loadPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
@@ -136,7 +137,7 @@ class _EnColaState extends State<EnCola> {
                 ),
               ),
             ),
-            actions: <Widget>[
+            /* actions: <Widget>[
               IconSlideAction(
                 caption: 'Archive',
                 color: Colors.blue,
@@ -149,18 +150,18 @@ class _EnColaState extends State<EnCola> {
                 icon: Icons.share,
                 onTap: () {},
               ),
-            ],
+            ], */
             secondaryActions: <Widget>[
-              IconSlideAction(
-                caption: 'More',
-                color: Colors.black45,
+              /* IconSlideAction(
+                caption: '',
+                color: Colors.black54,
                 icon: Icons.more_horiz,
                 onTap: () {},
-              ),
+              ), */
               IconSlideAction(
-                caption: 'Delete',
-                color: Colors.red,
-                icon: Icons.delete,
+                caption: 'Detalles',
+                color: Colors.black54,
+                icon: CupertinoIcons.ellipsis,
                 onTap: () {},
               ),
             ],

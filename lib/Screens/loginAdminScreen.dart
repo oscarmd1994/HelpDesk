@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/RespuestasBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'appStrings.dart';
 import 'loginValidationSplashScreen.dart';
 import 'package:http/http.dart' as http;
 
@@ -60,23 +61,23 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
 
   Future<void> saveShareData(user, pass) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    UserData userData = await getUserData(user, pass);
     await prefs.setString('user', user);
     await prefs.setString('pass', pass);
+    UserData userData = await getUserData(user, pass);
   }
 
   Future<void> searchSaveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    /* String vvuser = prefs.getString('user');
-    String vvpass = prefs.getString('pass'); */
-    if (prefs.getString('user') != "" && prefs.getString('pass') != "") {
+    if (prefs.getString('user') != null && prefs.getString('pass') != null) {
+      userid = prefs.getString('user');
+      contra = prefs.getString('pass');
       Navigator.pushReplacementNamed(context, 'wait');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    //searchSaveData();
+    searchSaveData();
     return Scaffold(
       backgroundColor: bg_white,
       body: SafeArea(
