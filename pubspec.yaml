@@ -23,25 +23,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  carousel_slider: ^3.0.0
-  convex_bottom_bar: ^3.0.0
-  cupertino_icons: ^1.0.2
-  flutter_launcher_icons: ^0.9.0
-  flutter_slidable: ^0.5.7
-  google_fonts: ^2.1.0
-  hidden_drawer_menu: ^3.0.0
-  http: ^0.13.0
-  jumping_bottom_nav_bar: ^0.1.0
-  lottie: ^1.1.0
-  shared_preferences: ^2.0.6
-  shimmer: ^2.0.0
-  timeago: ^3.1.0
+  carousel_slider: 3.0.0
+  convex_bottom_bar: 3.0.0
+  cupertino_icons: 1.0.3
+  flutter_launcher_icons: 0.9.0
+  flutter_slidable: 0.5.7
+  google_fonts: 2.1.0
+  hidden_drawer_menu: 3.0.0
+  http: 0.13.0
+  jumping_bottom_nav_bar: 0.1.0
+  lottie: 1.1.0
+  shared_preferences: 2.0.6
+  shimmer: 2.0.0
+  timeago: 3.1.0
 
 flutter_icons:
-  android: 'laucher_icon'
+  android: 'launcher_icon'
   ios: true
   image_path: 'images/tools.png'
-  adaptative_icon_backgroun: 'images/tools.png'
+  image_path_ios: 'images/toolsn.png'
+  #adaptative_icon_backgroun: '#000033'
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,8 @@ flutter:
     - images/users1.jpg
     - images/users2.jpg
     - images/user.png
+    - images/tools.png
+    - images/toolsn.png
 
     #Animaciones
     - assets/loader_4balls.json
