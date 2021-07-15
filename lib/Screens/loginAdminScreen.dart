@@ -60,23 +60,23 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
 
   Future<void> saveShareData(user, pass) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    UserData userData = await getUserData(user, pass);
     await prefs.setString('user', user);
     await prefs.setString('pass', pass);
+    UserData userData = await getUserData(user, pass);
   }
 
   Future<void> searchSaveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     /* String vvuser = prefs.getString('user');
     String vvpass = prefs.getString('pass'); */
-    if (prefs.getString('user') != "" && prefs.getString('pass') != "") {
+    if (prefs.getString('user') != null && prefs.getString('pass') != null) {
       Navigator.pushReplacementNamed(context, 'wait');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    //searchSaveData();
+    searchSaveData();
     return Scaffold(
       backgroundColor: bg_white,
       body: SafeArea(
@@ -201,6 +201,10 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                           } else if (response.iFlag == "1" ||
                               int.parse(response.iFlag) == 1) {
                             notification = "Credenciales invalidas";
+                          } else if (response == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              notifiValidacion("Reviza tu conexión a Internet"),
+                            );
                           }
                           if (notification == "") {
                             ScaffoldMessenger.of(context).showSnackBar(

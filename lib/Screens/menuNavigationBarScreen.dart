@@ -49,7 +49,7 @@ class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: saveDataEmp(),
+      future: saveDataEmp(context),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Widget screen;
         if (snapshot.connectionState == ConnectionState.waiting) {

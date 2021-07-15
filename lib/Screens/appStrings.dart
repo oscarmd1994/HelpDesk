@@ -14,3 +14,16 @@ String email;
 String user;
 //
 String errorText = "";
+
+// ticket en pantalla
+String idTicket;
+String empresaId;
+String descripcionProblema;
+String modalidadId;
+String nombreModalidad;
+String statusId;
+String status;
+String usuarioAsignadoId;
+String usuarioAsignado;
+String fechaCreacion;
+String prioridadId;

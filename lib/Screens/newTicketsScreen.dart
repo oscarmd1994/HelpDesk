@@ -117,18 +117,21 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
       if (response == null) {
         customsnackbar('Error ');
       } else {
-        if (int.parse(response.iFlag) != 0) {
+        if (int.parse(response.iFlag) == 0) {
           ScaffoldMessenger.of(context).showSnackBar(
-            customsnackbar('Llena correctamente el formulario'),
-            //customsnackbar(response.sMessage.toString()),
+            customsnackbar(response.sMessage.toString()),
           );
+          if (int.parse('tuserid') == 1) {
+            Navigator.pushReplacementNamed(context, 'home');
+          } else if (int.parse('tuserid') == 2) {
+            Navigator.pushReplacementNamed(context, 'homeAdmin');
+          }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            customsnackbar('Se agrego correctamente el ticket'),
-            //customsnackbar(response.sMessage.toString()),
+            customsnackbar(response.sMessage.toString()),
           );
         }
-        customsnackbar(' termino y Nada');
+        //customsnackbar(' termino y Nada');
       }
     }
   }
@@ -163,8 +166,16 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   padding: EdgeInsets.only(left: 16, right: 16),
                   decoration: BoxDecoration(
                     color: bg_light,
-                    border: Border.all(color: bg_dark),
+                    border: Border.all(color: Colors.blueGrey[400], width: 0.5),
                     borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.blueGrey[200].withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 0.5,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ],
                   ),
                   child: DropdownButton(
                     hint: Text(
@@ -286,9 +297,17 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                     right: 16,
                   ),
                   decoration: BoxDecoration(
-                    color: bg_white,
-                    border: Border.all(color: bg_dark, width: 1),
+                    color: bg_light,
+                    border: Border.all(color: Colors.blueGrey[400], width: 0.5),
                     borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.blueGrey[200].withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 0.5,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ],
                   ),
                   child: DropdownButton(
                     hint: Text(
@@ -320,7 +339,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                 ),
                 // DROPDOWN DE EMPRESAS
-                SizedBox(height: 20.0),
+                /*SizedBox(height: 20.0),
                 // DROPDOWN DE PRIORIDAD
                 Text(
                   "Prioridad",
@@ -338,8 +357,16 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                   decoration: BoxDecoration(
                     color: bgDropPrioridades,
-                    border: Border.all(color: bg_dark, width: 1),
+                    border: Border.all(color: Colors.blueGrey[400], width: 0.5),
                     borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.blueGrey[200].withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 0.5,
+                        offset: Offset(0, 0), // changes position of shadow
+                      ),
+                    ],
                   ),
                   child: DropdownButton(
                     hint: Text(
@@ -372,7 +399,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                 ),
                 // DROPDOWN DE PRIORIDAD
-
+*/
                 SizedBox(height: 20.0),
 
                 TextField(
@@ -404,8 +431,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                   style: TextStyle(fontSize: 18.0, color: Colors.black),
                 ),
-
-                Expanded(child: SizedBox()),
+                SizedBox(height: 20.0),
                 ElevatedButton(
                   onPressed: () {
                     validaNewTicket();
@@ -416,10 +442,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                       Icon(Icons.save, color: bg_white),
                       Text(
                         ' Generar ticket',
-                        style: TextStyle(
-                          color: bg_white,
-                          fontSize: 18,
-                        ),
+                        style: TextStyle(color: bg_white, fontSize: 18),
                       ),
                     ],
                   ),
@@ -433,28 +456,6 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                     elevation: 8,
                   ),
                 ),
-                /* InkWell(
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                    decoration: BoxDecoration(
-                        color: bg_addbutton,
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.save, color: bg_white),
-                        Text(
-                          ' Generar ticket',
-                          style: TextStyle(
-                            color: bg_white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ), */
               ],
             ),
           ),

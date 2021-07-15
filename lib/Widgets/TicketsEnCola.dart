@@ -1,11 +1,15 @@
+import 'package:app_soporte/Screens/appStrings.dart';
 import 'package:app_soporte/Widgets/errorPage.dart';
 import 'package:app_soporte/Widgets/loadPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
 import 'package:timeago/timeago.dart' as timeago;
+
+import 'DetallesTicket_cola.dart';
 
 class EnCola extends StatefulWidget {
   @override
@@ -134,36 +138,20 @@ class _EnColaState extends State<EnCola> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                onTap: () {
+                  idTicket = data[index].idTicket.toString();
+                  Navigator.pushReplacementNamed(context, 'ticketDC');
+                },
               ),
             ),
-            actions: <Widget>[
+            /* secondaryActions: <Widget>[
               IconSlideAction(
-                caption: 'Archive',
-                color: Colors.blue,
-                icon: Icons.archive,
+                caption: 'Detalles',
+                color: Colors.black54,
+                icon: CupertinoIcons.ellipsis,
                 onTap: () {},
               ),
-              IconSlideAction(
-                caption: 'Share',
-                color: Colors.indigo,
-                icon: Icons.share,
-                onTap: () {},
-              ),
-            ],
-            secondaryActions: <Widget>[
-              IconSlideAction(
-                caption: 'More',
-                color: Colors.black45,
-                icon: Icons.more_horiz,
-                onTap: () {},
-              ),
-              IconSlideAction(
-                caption: 'Delete',
-                color: Colors.red,
-                icon: Icons.delete,
-                onTap: () {},
-              ),
-            ],
+            ], */
           ),
         );
       },

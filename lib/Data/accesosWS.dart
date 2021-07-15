@@ -6,6 +6,8 @@ import 'package:app_soporte/Models/RespuestasBean.dart';
 import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Models/TipoServicioBean.dart';
 import 'package:app_soporte/Models/UserDataBean.dart';
+import 'package:app_soporte/Screens/appStrings.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -105,21 +107,42 @@ Future<UserData> getUserData(String user, String pass) async {
   }
 }
 
+Future<void> getTicket() async {
+  List<Tickets> ticket;
+  final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/Tickets";
+  var response = await http.get(Uri.parse(apiUrl) //,
+      //headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      //body: jsonEncode({"Id": idTicket}),
+      );
+  print(response.statusCode);
+  if (response.statusCode == 200) {
+    //return ticketsFromJson(response.body);
+    ticket = ticketsFromJson(response.body);
+    descripcionProblema = ticket[0].nombreModalidad;
+  } else {
+    //return null;
+  }
+}
+
 Future<SharedPreferences> getSharePreferences() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   //await saveDataEmp();
   return prefs;
 }
 
-Future<void> saveDataEmp() async {
+Future<void> saveDataEmp(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  UserData userData =
-      await getUserData(prefs.getString('user'), prefs.getString('pass'));
-  await prefs.setString('idUsuario', userData.idUsuario);
-  await prefs.setString('nombre', userData.nombre);
-  await prefs.setString('paterno', userData.paterno);
-  await prefs.setString('materno', userData.materno);
-  await prefs.setString('email', userData.email);
-  await prefs.setString('tipoUser', userData.tipoUser);
-  await prefs.setString('tipoUserId', userData.tipoUserId);
+  if (prefs.getString('user') == null) {
+    Navigator.pushReplacementNamed(context, 'login');
+  } else {
+    UserData userData =
+        await getUserData(prefs.getString('user'), prefs.getString('pass'));
+    await prefs.setString('idUsuario', userData.idUsuario);
+    await prefs.setString('nombre', userData.nombre);
+    await prefs.setString('paterno', userData.paterno);
+    await prefs.setString('materno', userData.materno);
+    await prefs.setString('email', userData.email);
+    await prefs.setString('tipoUser', userData.tipoUser);
+    await prefs.setString('tipoUserId', userData.tipoUserId);
+  }
 }

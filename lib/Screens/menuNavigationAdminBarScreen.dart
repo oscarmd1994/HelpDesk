@@ -10,16 +10,17 @@ import 'profileScreen.dart';
 import 'HistorialScreen.dart';
 import 'appColors.dart';
 
-class MenuNavigationBarScreen extends StatefulWidget {
-  const MenuNavigationBarScreen({
+class MenuNavigationAdminBarScreen extends StatefulWidget {
+  const MenuNavigationAdminBarScreen({
     Key key,
   });
   @override
-  _MenuNavigationBarScreenState createState() =>
-      _MenuNavigationBarScreenState();
+  _MenuNavigationAdminBarScreenState createState() =>
+      _MenuNavigationAdminBarScreenState();
 }
 
-class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
+class _MenuNavigationAdminBarScreenState
+    extends State<MenuNavigationAdminBarScreen> {
   int _currentIndex = 0;
   Widget selectedScreen = TicketScreen();
   String titulo = "Inicio";
@@ -49,7 +50,7 @@ class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: saveDataEmp(),
+      future: saveDataEmp(context),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Widget screen;
         if (snapshot.connectionState == ConnectionState.waiting) {

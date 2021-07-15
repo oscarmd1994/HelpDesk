@@ -77,3 +77,8 @@ flutter:
     - assets/loader_4balls.json
     - assets/robot.json
     - assets/error.json
+
+  fonts:
+    - family: AkayaKanadaka
+      fonts:
+        - asset: assets/AkayaKanadaka.ttf

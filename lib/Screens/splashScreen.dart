@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Screens/appColors.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String titulo = "Help Desk";
+    final String titulo = "HELP DESK";
 
     return Container(
       color: bg_white,
@@ -40,15 +41,16 @@ class _SplashScreenState extends State<SplashScreen> {
             builder: (BuildContext context, Object value, Widget child) {
               return Text(
                 titulo.substring(0, value),
-                style: TextStyle(decoration: TextDecoration.none),
+                style: TextStyle(
+                  fontFamily: 'AkayaKanadaka',
+                  fontSize: 48,
+                ), //TextStyle(decoration: TextDecoration.none),
               );
             },
             duration: Duration(milliseconds: 1200),
             tween: IntTween(begin: 0, end: titulo.length),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           Text(
             "by Raci TI",
             style: TextStyle(
