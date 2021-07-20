@@ -6,6 +6,7 @@ import 'Screens/loginAdminScreen.dart';
 import 'Screens/splashScreen2.dart';
 import 'Screens/splashScreen3.dart';
 import 'Screens/loginValidationSplashScreen.dart';
+import 'Widgets/DetallesTicket_cola.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
         'splash2': (BuildContext context) => SplashScreen2(),
         'splash3': (BuildContext context) => SplashScreen3(),
         'home': (BuildContext context) => MenuNavigationBarScreen(),
+        //'homeAdmin': (BuildContext context) => MenuNavigationAdminBarScreen(),
         'wait': (BuildContext context) => LoginValidationSplashScreen(),
+        'ticketDC': (BuildContext context) => DetallesTicketCola(),
       },
     );
   }

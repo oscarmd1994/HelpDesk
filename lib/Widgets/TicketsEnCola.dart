@@ -1,5 +1,4 @@
-import 'package:app_soporte/Widgets/errorPage.dart';
-import 'package:app_soporte/Widgets/loadPage.dart';
+import 'package:app_soporte/Screens/appStrings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/TicketsBean.dart';
@@ -135,36 +134,21 @@ class _EnColaState extends State<EnCola> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                onTap: () {
+                  String id = data[index].idTicket.toString();
+                  idTicket = id;
+                  Navigator.pushReplacementNamed(context, 'ticketDC');
+                },
               ),
             ),
-            /* actions: <Widget>[
-              IconSlideAction(
-                caption: 'Archive',
-                color: Colors.blue,
-                icon: Icons.archive,
-                onTap: () {},
-              ),
-              IconSlideAction(
-                caption: 'Share',
-                color: Colors.indigo,
-                icon: Icons.share,
-                onTap: () {},
-              ),
-            ], */
-            secondaryActions: <Widget>[
-              /* IconSlideAction(
-                caption: '',
-                color: Colors.black54,
-                icon: Icons.more_horiz,
-                onTap: () {},
-              ), */
+            /* secondaryActions: <Widget>[
               IconSlideAction(
                 caption: 'Detalles',
                 color: Colors.black54,
                 icon: CupertinoIcons.ellipsis,
                 onTap: () {},
               ),
-            ],
+            ], */
           ),
         );
       },

@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final String titulo = "Help Desk";
+    final String titulo = "HELP DESK";
 
     return Container(
       color: bg_white,
@@ -36,26 +36,14 @@ class _SplashScreenState extends State<SplashScreen> {
           SizedBox(
             height: 20,
           ),
-          TweenAnimationBuilder<int>(
-            builder: (BuildContext context, Object value, Widget child) {
-              return Text(
-                titulo.substring(0, value),
-                style: TextStyle(decoration: TextDecoration.none),
-              );
-            },
-            duration: Duration(milliseconds: 1200),
-            tween: IntTween(begin: 0, end: titulo.length),
-          ),
-          SizedBox(
-            height: 20,
-          ),
           Text(
-            "by Raci TI",
+            titulo,
             style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                decoration: TextDecoration.none),
+              fontFamily: 'AkayaKanadaka',
+              fontSize: 48,
+            ), //TextStyle(decoration: TextDecoration.none),
           ),
+          SizedBox(height: 20),
         ],
       ),
     );

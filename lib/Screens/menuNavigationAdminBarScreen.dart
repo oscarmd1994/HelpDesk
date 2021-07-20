@@ -10,16 +10,17 @@ import 'profileScreen.dart';
 import 'HistorialScreen.dart';
 import 'appColors.dart';
 
-class MenuNavigationBarScreen extends StatefulWidget {
-  const MenuNavigationBarScreen({
+class MenuNavigationAdminBarScreen extends StatefulWidget {
+  const MenuNavigationAdminBarScreen({
     Key key,
   });
   @override
-  _MenuNavigationBarScreenState createState() =>
-      _MenuNavigationBarScreenState();
+  _MenuNavigationAdminBarScreenState createState() =>
+      _MenuNavigationAdminBarScreenState();
 }
 
-class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
+class _MenuNavigationAdminBarScreenState
+    extends State<MenuNavigationAdminBarScreen> {
   int _currentIndex = 0;
   Widget selectedScreen = TicketScreen();
   String titulo = "Inicio";

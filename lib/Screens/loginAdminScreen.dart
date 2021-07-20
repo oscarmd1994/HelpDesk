@@ -1,10 +1,8 @@
 import 'package:app_soporte/Data/accesosWS.dart';
-import 'package:app_soporte/Models/UserDataBean.dart';
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/RespuestasBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'appStrings.dart';
 import 'loginValidationSplashScreen.dart';
 import 'package:http/http.dart' as http;
 
@@ -63,14 +61,14 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('user', user);
     await prefs.setString('pass', pass);
-    UserData userData = await getUserData(user, pass);
+    await getUserData(user, pass);
   }
 
   Future<void> searchSaveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    /* String vvuser = prefs.getString('user');
+    String vvpass = prefs.getString('pass'); */
     if (prefs.getString('user') != null && prefs.getString('pass') != null) {
-      userid = prefs.getString('user');
-      contra = prefs.getString('pass');
       Navigator.pushReplacementNamed(context, 'wait');
     }
   }
@@ -202,6 +200,10 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                           } else if (response.iFlag == "1" ||
                               int.parse(response.iFlag) == 1) {
                             notification = "Credenciales invalidas";
+                          } else if (response == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              notifiValidacion("Reviza tu conexión a Internet"),
+                            );
                           }
                           if (notification == "") {
                             ScaffoldMessenger.of(context).showSnackBar(

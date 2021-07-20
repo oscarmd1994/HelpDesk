@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_soporte/Models/DetalleTicketsBean.dart';
 import 'package:app_soporte/Models/EmpresasBean.dart';
 import 'package:app_soporte/Models/ModalidadesBean.dart';
 import 'package:app_soporte/Models/PrioridadesBean.dart';
@@ -7,6 +8,7 @@ import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Models/TipoServicioBean.dart';
 import 'package:app_soporte/Models/UserDataBean.dart';
 import 'package:app_soporte/Screens/appStrings.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -99,7 +101,7 @@ Future<UserData> getUserData(String user, String pass) async {
     },
     body: jsonEncode({"user": user, "pass": pass}),
   );
-  print(response.body);
+  //print(response.body);
   if (response.statusCode == 200) {
     return userDataFromJson(response.body);
   } else {
@@ -107,23 +109,54 @@ Future<UserData> getUserData(String user, String pass) async {
   }
 }
 
+Future<void> getTicket() async {
+  DetalleTicketsBean ticket;
+
+  final String apiUrl =
+      "https://wshelpdesk.gruposeri.com:36000/Tickets/$idTicket";
+  print('id = $idTicket');
+  print('$apiUrl');
+  var response = await http.get(Uri.parse(apiUrl) //,
+      //headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      //body: jsonEncode({"Id": idTicket}),
+      );
+  print(response.statusCode);
+  if (response.statusCode == 200) {
+    //return ticketsFromJson(response.body);
+    ticket = detalleTicketsBeanFromJson(response.body);
+    descripcionProblema = ticket.descripcionProblema;
+    nombreModalidad = ticket.nombreModalidad;
+    status = ticket.status;
+    statusId = ticket.statusId.toString();
+    fechaCreacion = DateTime.parse(ticket.fechaCreacion).toString();
+    prioridadId = ticket.prioridadId.toString();
+    usuarioSolicitante = ticket.usuarioSolicitante;
+    usuarioSolicitanteId = ticket.usuarioSolicitanteId;
+    prioridad = ticket.prioridad;
+  } else {
+    //return null;
+  }
+}
+
 Future<SharedPreferences> getSharePreferences() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  await saveDataEmp();
+  //await saveDataEmp();
   return prefs;
 }
 
-Future<void> saveDataEmp() async {
+Future<void> saveDataEmp(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  String user = prefs.getString('user');
-  String pass = prefs.getString('pass');
-  UserData userData = await getUserData(user, pass);
-
-  await prefs.setString('idUsuario', userData.idUsuario);
-  await prefs.setString('nombre', userData.nombre);
-  await prefs.setString('paterno', userData.paterno);
-  await prefs.setString('materno', userData.materno);
-  await prefs.setString('email', userData.email);
-  await prefs.setString('tipoUser', userData.tipoUser);
-  await prefs.setString('tipoUserId', userData.tipoUserId);
+  if (prefs.getString('user') == null) {
+    Navigator.pushReplacementNamed(context, 'login');
+  } else {
+    UserData userData =
+        await getUserData(prefs.getString('user'), prefs.getString('pass'));
+    await prefs.setString('idUsuario', userData.idUsuario);
+    await prefs.setString('nombre', userData.nombre);
+    await prefs.setString('paterno', userData.paterno);
+    await prefs.setString('materno', userData.materno);
+    await prefs.setString('email', userData.email);
+    await prefs.setString('tipoUser', userData.tipoUser);
+    await prefs.setString('tipoUserId', userData.tipoUserId);
+  }
 }
