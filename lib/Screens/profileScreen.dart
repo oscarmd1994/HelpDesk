@@ -14,7 +14,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  SharedPreferences prefs;
+  SharedPreferences? prefs;
   /* String userid;
   String name;
   String apellidos;
@@ -32,13 +32,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void getprefs() async {
     prefs = await getSharePreferences();
 
-    userid = prefs.getString('idUsuario');
-    name = prefs.getString('nombre');
-    apellidos = '${prefs.getString('paterno')} ${prefs.getString('materno')}';
-    tuserid = prefs.getString('tipoUser');
-    user = prefs.getString('user');
-    tuser = prefs.getString('tipoUser');
-    email = prefs.getString('email');
+    userid = prefs!.getString('idUsuario');
+    name = prefs!.getString('nombre');
+    apellidos = '${prefs!.getString('paterno')} ${prefs!.getString('materno')}';
+    tuserid = prefs!.getString('tipoUser');
+    user = prefs!.getString('user');
+    tuser = prefs!.getString('tipoUser');
+    email = prefs!.getString('email');
   }
 
   Future<void> _closeSession() async {
@@ -55,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: FutureBuilder(
           future: getSharePreferences(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            Widget screen;
+            Widget screen = Container();
             if (snapshot.connectionState == ConnectionState.waiting) {
               screen = LoadPage();
             } else if (snapshot.connectionState == ConnectionState.done) {
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icons.email,
                     ),
                   ),
-                  Text(email),
+                  Text(email!),
                 ],
               ),
               Row(
@@ -168,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icons.business_center,
                     ),
                   ),
-                  Text(tuser),
+                  Text(tuser!),
                 ],
               ),
               Row(
@@ -179,42 +179,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icons.account_circle,
                     ),
                   ),
-                  Text(user),
+                  Text(user!),
                 ],
               ),
-              /*Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.visibility_off,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      "Password",
-                    ),
-                  ),
-                  GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text("Editar "),
-                          Icon(Icons.edit),
-                        ],
-                      ),
-                    ),
-                    onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("Editando..."),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),*/
               Expanded(
                 child: SizedBox(),
               ),
@@ -229,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.undo, color: bg_white),
+                      //Icon(Icons.undo, color: bg_white),
                       Text(
                         ' Cerrar Sesión',
                         style: TextStyle(

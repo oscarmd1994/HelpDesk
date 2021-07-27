@@ -11,9 +11,6 @@ import 'HistorialScreen.dart';
 import 'appColors.dart';
 
 class MenuNavigationAdminBarScreen extends StatefulWidget {
-  const MenuNavigationAdminBarScreen({
-    Key key,
-  });
   @override
   _MenuNavigationAdminBarScreenState createState() =>
       _MenuNavigationAdminBarScreenState();
@@ -52,7 +49,7 @@ class _MenuNavigationAdminBarScreenState
     return FutureBuilder(
       future: saveDataEmp(context),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        Widget screen;
+        Widget screen = Container();
         if (snapshot.connectionState == ConnectionState.waiting) {
           screen = LoadPage();
         } else if (snapshot.connectionState == ConnectionState.none) {
@@ -108,7 +105,7 @@ class _MenuNavigationAdminBarScreenState
 }
 
 Widget getScreen(index) {
-  Widget w;
+  Widget w = Container();
   if (index == 0) {
     w = TicketScreen();
   }

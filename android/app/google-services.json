@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "740442755033",
+    "project_id": "helpdesk-notifications-cb3e1",
+    "storage_bucket": "helpdesk-notifications-cb3e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740442755033:android:d6ad4a2d69c847850cd3c8",
+        "android_client_info": {
+          "package_name": "com.raciti.helpdesk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740442755033-4a2ves65370qa2o8hi7ncrqs6o25e5go.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raciti.helpdesk",
+            "certificate_hash": "a378754c63e849bb4026c0c712411d8769c94b67"
+          }
+        },
+        {
+          "client_id": "740442755033-fjelkk573c9a2hf1flhtbt0fnb0a3gjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqzuipb1nkuE9mupoZu8aZviSkENEMawU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740442755033-fjelkk573c9a2hf1flhtbt0fnb0a3gjk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

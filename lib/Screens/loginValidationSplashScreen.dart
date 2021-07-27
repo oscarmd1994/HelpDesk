@@ -36,7 +36,7 @@ class _LoginValidationSplashScreenState
             ),
             Center(
               child: TweenAnimationBuilder<int>(
-                builder: (BuildContext context, Object value, Widget child) {
+                builder: (BuildContext context, int value, Widget? child) {
                   return Text(
                     "Iniciando sesión".substring(0, value),
                     style: TextStyle(decoration: TextDecoration.none),

@@ -15,10 +15,10 @@ class DetallesTicketCola extends StatefulWidget {
 }
 
 class _DetallesTicketColaState extends State<DetallesTicketCola> {
-  List<Tickets> ticket;
+  List<Tickets>? ticket;
 
   Text textos(String txt, double size) {
-    Widget texto = Text(txt,
+    Text texto = Text(txt,
         style: GoogleFonts.inconsolata(
             color: bg_white, fontSize: size, fontWeight: FontWeight.bold));
     return texto;
@@ -27,7 +27,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
   // CAMBIA EL COLOR DEL DROP SEGUN LA PRIORIDAD
   Color cambiaColorDropPrioridad(String newValue) {
     print(newValue);
-    Color color;
+    Color color = Colors.transparent;
     if (int.parse(newValue) == 1) {
       color = bg_fondo_important_ticket;
     } else if (int.parse(newValue) == 2) {
@@ -118,7 +118,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
   }
 
   Text descripcionestxt(String txt, double size) {
-    Widget texto = Text(txt,
+    Text texto = Text(txt,
         style: GoogleFonts.inconsolata(
           color: bg_dark.withOpacity(0.8),
           fontSize: size,
@@ -181,7 +181,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
       body: FutureBuilder(
           future: getTicket(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            Widget screen;
+            Widget screen = Container();
 
             if (snapshot.connectionState == ConnectionState.waiting) {
               screen = LoadPage();
@@ -195,7 +195,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    appbar(context, prioridadId),
+                    appbar(context, prioridadId!),
                     Container(
                       margin: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.05,
@@ -220,7 +220,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                           color: bg_dfondo,
                         ),
                         title: Text(
-                          _setTimeAgo(DateTime.parse(fechaCreacion)),
+                          _setTimeAgo(DateTime.parse(fechaCreacion!)),
                           style: TextStyle(
                             color: Colors.black54,
                             fontSize: 15,
@@ -248,7 +248,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                       child: ListTile(
                         //leading: Icon(CupertinoIcons.asterisk_circle),
                         title: Text(
-                          nombreModalidad,
+                          nombreModalidad!,
                           style: TextStyle(
                             color: Colors.black54,
                             fontSize: 15,
@@ -276,7 +276,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                       child: ListTile(
                         //leading: Icon(CupertinoIcons.chat_bubble_text),
                         title: Text(
-                          descripcionProblema,
+                          descripcionProblema!,
                           style: TextStyle(
                             color: Colors.black54,
                             fontSize: 15,
@@ -307,7 +307,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                           color: bg_dfondo,
                         ),
                         title: Text(
-                          usuarioSolicitante,
+                          usuarioSolicitante!,
                           style: TextStyle(
                             color: Colors.black54,
                             fontSize: 15,
@@ -338,7 +338,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                           color: bg_dfondo,
                         ),
                         title: Text(
-                          prioridad,
+                          prioridad!,
                           style: TextStyle(
                             color: Colors.black54,
                             fontSize: 15,

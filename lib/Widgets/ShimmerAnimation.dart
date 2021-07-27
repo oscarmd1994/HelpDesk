@@ -13,8 +13,8 @@ class _ShimmerWidgetState extends State<ShimmerWidget> {
       body: Container(
         child: Center(
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[700],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[700]!,
+            highlightColor: Colors.grey[100]!,
             child: ShimmerList(),
           ),
         ),
@@ -32,9 +32,9 @@ class ShimmerList extends StatelessWidget {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: Shimmer.fromColors(
-            child: ShimmerLayout(),
-            baseColor: Colors.grey[700],
-            highlightColor: Colors.grey[100]),
+              child: ShimmerLayout(),
+              baseColor: Colors.grey[700]!,
+              highlightColor: Colors.grey[100]!),
         );
       },
     );

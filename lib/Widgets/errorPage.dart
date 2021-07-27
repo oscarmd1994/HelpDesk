@@ -21,7 +21,7 @@ class _ErrorPageState extends State<ErrorPage> {
           Expanded(
             child: Center(
               child: Text(
-                errorText,
+                errorText!,
                 style: TextStyle(
                   color: bg_rojo,
                   fontSize: 18,

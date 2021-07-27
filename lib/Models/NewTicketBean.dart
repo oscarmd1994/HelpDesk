@@ -12,10 +12,10 @@ class NewTicket {
     this.descripcionProblema,
   });
 
-  String userSolicitanteId;
-  String empresaId;
-  String modalidadId;
-  String descripcionProblema;
+  String? userSolicitanteId;
+  String? empresaId;
+  String? modalidadId;
+  String? descripcionProblema;
 
   factory NewTicket.fromJson(Map<String, dynamic> json) => NewTicket(
         userSolicitanteId: json["user_solicitante_id"],

@@ -28,24 +28,24 @@ class DetalleTicketsBean {
     this.fechaTermino,
   });
 
-  String idTicket;
-  String empresaId;
-  String nombreEmpresa;
-  String descripcionProblema;
-  String modalidadId;
-  String nombreModalidad;
-  String statusId;
-  String status;
-  String prioridadId;
-  String prioridad;
-  String usuarioSolicitante;
-  String usuarioSolicitanteId;
-  String usuarioAsignado;
-  String usuarioAsignadoId;
-  String fechaCreacion;
-  String fechaAsignacion;
-  String fechaProcesamiento;
-  String fechaTermino;
+  String? idTicket;
+  String? empresaId;
+  String? nombreEmpresa;
+  String? descripcionProblema;
+  String? modalidadId;
+  String? nombreModalidad;
+  String? statusId;
+  String? status;
+  String? prioridadId;
+  String? prioridad;
+  String? usuarioSolicitante;
+  String? usuarioSolicitanteId;
+  String? usuarioAsignado;
+  String? usuarioAsignadoId;
+  String? fechaCreacion;
+  String? fechaAsignacion;
+  String? fechaProcesamiento;
+  String? fechaTermino;
 
   factory DetalleTicketsBean.fromJson(Map<String, dynamic> json) =>
       DetalleTicketsBean(

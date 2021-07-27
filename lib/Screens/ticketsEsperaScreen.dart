@@ -45,7 +45,7 @@ class _TicketPageState extends State<TicketPage> {
                     SizedBox(
                       width: 10.0,
                     ),
-                    Text(servicios[index].nombre),
+                    Text(servicios[index].nombre!),
                   ],
                 ),
               ),

@@ -7,9 +7,6 @@ import 'package:app_soporte/Screens/newTicketsScreen.dart';
 import 'package:app_soporte/Screens/profileScreen.dart';
 
 class MenuNavigationBarScreen extends StatefulWidget {
-  const MenuNavigationBarScreen({
-    Key key,
-  });
   @override
   _MenuNavigationBarScreenState createState() =>
       _MenuNavigationBarScreenState();
@@ -84,7 +81,7 @@ class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
 ///////////////////////////////
 
 Widget getScreen(index) {
-  Widget w;
+  Widget w = Container();
   if (index == 0) {
     w = TicketScreen();
   }

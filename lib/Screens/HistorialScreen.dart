@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+//import 'package:flutter_slidable/src/widgets/slidable.dart';
 import 'package:http/http.dart' as http;
 
 import 'appColors.dart';
@@ -29,8 +30,8 @@ class _HistorialScreenState extends State<HistorialScreen> {
     super.initState();
   }
 
-  Color colorFondo(prioridadId) {
-    Color color;
+  Color? colorFondo(prioridadId) {
+    Color? color;
     if (prioridadId == 1) {
       color = bg_fondo_important_ticket;
     } else if (prioridadId == 2) {
@@ -109,14 +110,14 @@ class _HistorialScreenState extends State<HistorialScreen> {
                               foregroundColor: Colors.black,
                             ),
                             title: Text(
-                              data[index].nombreModalidad,
+                              data[index].nombreModalidad.toString(),
                               style: TextStyle(
                                   fontSize: 18,
                                   color: bg_black,
                                   fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text(
-                              data[index].descripcionProblema,
+                              data[index].descripcionProblema.toString(),
                               style: TextStyle(color: bg_black),
                             ),
                             trailing: Text("28/06/2021"),

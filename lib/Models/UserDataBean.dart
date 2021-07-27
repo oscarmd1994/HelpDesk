@@ -15,13 +15,13 @@ class UserData {
     this.tipoUser,
   });
 
-  String idUsuario;
-  String nombre;
-  String paterno;
-  String materno;
-  String email;
-  String tipoUserId;
-  String tipoUser;
+  String? idUsuario;
+  String? nombre;
+  String? paterno;
+  String? materno;
+  String? email;
+  String? tipoUserId;
+  String? tipoUser;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
         idUsuario: json["idUsuario"],

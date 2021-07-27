@@ -11,8 +11,8 @@ class Respuestas {
     this.sMessage,
   });
 
-  String iFlag;
-  String sMessage;
+  String? iFlag;
+  String? sMessage;
 
   factory Respuestas.fromJson(Map<String, dynamic> json) => Respuestas(
         iFlag: json["iFlag"],

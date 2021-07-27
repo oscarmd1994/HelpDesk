@@ -12,13 +12,13 @@ class LoginScreenAdmin extends StatefulWidget {
 }
 
 class _LoginScreenAdminState extends State<LoginScreenAdmin> {
-  TextEditingController userController;
-  TextEditingController passController;
+  TextEditingController userController = new TextEditingController();
+  TextEditingController passController = new TextEditingController();
 
-  String user;
-  String pass;
+  String user = "";
+  String pass = "";
   String notification = "";
-  Respuestas response;
+  Respuestas? response;
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
     super.initState();
   }
 
-  Future<Respuestas> getLoginValidation(String user, String pass) async {
+  Future<Respuestas?> getLoginValidation(String user, String pass) async {
     final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/TUsuarios/" +
         user +
         "/" +
@@ -66,9 +66,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
 
   Future<void> searchSaveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    /* String vvuser = prefs.getString('user');
-    String vvpass = prefs.getString('pass'); */
-    if (prefs.getString('user') != null && prefs.getString('pass') != null) {
+    if (prefs.getString('user') != null && prefs.getString('user') != "") {
       Navigator.pushReplacementNamed(context, 'wait');
     }
   }
@@ -85,18 +83,14 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                 EdgeInsets.only(top: 0, bottom: 5.0, left: 5.0, right: 5.0),
             child: Column(
               children: [
-                SizedBox(
-                  height: 5.0,
-                ),
+                SizedBox(height: 5.0),
                 Image(
                   image: AssetImage("images/logo_app.png"),
                   width: 350.0,
                   height: 180.0,
                   alignment: Alignment.center,
                 ),
-                SizedBox(
-                  height: 15.0,
-                ),
+                SizedBox(height: 15.0),
                 Text(
                   "INGRESA TUS CREDENCIALES",
                   style: TextStyle(fontSize: 22.0, fontFamily: "Brand Bold"),
@@ -111,9 +105,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                   ),
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 1.0,
-                      ),
+                      SizedBox(height: 1.0),
                       TextFormField(
                         controller: userController,
                         keyboardType: TextInputType.emailAddress,
@@ -138,9 +130,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                             hintText: 'Ingresa usuario'),
                         style: TextStyle(fontSize: 20.0, color: bg_dark),
                       ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
+                      SizedBox(height: 20.0),
                       TextField(
                         controller: passController,
                         obscureText: true,
@@ -165,13 +155,11 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                         ),
                         style: TextStyle(fontSize: 20.0),
                       ),
-                      SizedBox(
-                        height: 50.0,
-                      ),
+                      SizedBox(height: 50.0),
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(bg_primary),
+                              MaterialStateProperty.all<Color?>(bg_primary),
                         ),
                         child: Container(
                           height: 50.0,
@@ -179,7 +167,9 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                             child: Text(
                               "Login",
                               style: TextStyle(
-                                  fontSize: 18.0, fontFamily: "Brand Bold"),
+                                fontSize: 18.0,
+                                fontFamily: "Brand Bold",
+                              ),
                             ),
                           ),
                         ),
@@ -188,8 +178,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                           user = userController.text.trim();
                           pass = passController.text.trim();
                           response = await getLoginValidation(user, pass);
-                          if (response.iFlag == "0" ||
-                              int.parse(response.iFlag) == 0) {
+                          if (response?.iFlag == "0") {
                             saveShareData(user, pass);
                             notification = "Bienvenido";
                             Navigator.of(context).push(
@@ -197,8 +186,7 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                                   builder: (context) =>
                                       LoginValidationSplashScreen()),
                             );
-                          } else if (response.iFlag == "1" ||
-                              int.parse(response.iFlag) == 1) {
+                          } else if (response?.iFlag == "1") {
                             notification = "Credenciales invalidas";
                           } else if (response == null) {
                             ScaffoldMessenger.of(context).showSnackBar(

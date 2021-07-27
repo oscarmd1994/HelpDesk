@@ -16,16 +16,16 @@ class NewTicketsScreen extends StatefulWidget {
 }
 
 class _NewTicketsScreenState extends State<NewTicketsScreen> {
-  List<TipoServicioBean> servicios;
-  List<Modalidades> modalidades;
-  List<Empresas> empresas;
-  List<Prioridades> prioridades;
-  Color bgDropPrioridades;
-  bool isEmpty;
-  Respuestas response;
-  SharedPreferences prefs;
+  List<TipoServicioBean>? servicios;
+  List<Modalidades>? modalidades;
+  List<Empresas>? empresas;
+  List<Prioridades>? prioridades;
+  Color? bgDropPrioridades;
+  bool? isEmpty;
+  Respuestas? response;
+  SharedPreferences? prefs;
   //form variables
-  TextEditingController cometarioscontroller;
+  TextEditingController? cometarioscontroller;
 
   //form variables
   @override
@@ -67,7 +67,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
 
   void getprefs() async {
     prefs = await getSharePreferences();
-    userid = prefs.getString('idUsuario');
+    userid = prefs?.getString('idUsuario');
   }
 
   SnackBar customsnackbar(String text) {
@@ -88,12 +88,12 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
   // CAMBIA EL COLOR DEL DROP SEGUN LA PRIORIDAD
   void cambiaColorDropPrioridad(newValue) {
     print(newValue);
-    Color color;
-    if (int.parse(valorDropPrioridad) == 1) {
+    Color? color;
+    if (int.parse(valorDropPrioridad.toString()) == 1) {
       color = bg_fondo_important_ticket;
-    } else if (int.parse(valorDropPrioridad) == 2) {
+    } else if (int.parse(valorDropPrioridad.toString()) == 2) {
       color = bg_titulo_medium_ticket;
-    } else if (int.parse(valorDropPrioridad) == 3) {
+    } else if (int.parse(valorDropPrioridad.toString()) == 3) {
       color = bg_fondo_less_ticket;
     }
 
@@ -115,13 +115,13 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
       );
     } else {
       response = await postSaveNewTicket(userid, valorDropEmpresa,
-          valorDropModalidad, cometarioscontroller.text);
+          valorDropModalidad, cometarioscontroller?.text);
       if (response == null) {
         customsnackbar('Error ');
       } else {
-        if (int.parse(response.iFlag) == 0) {
+        if (response!.iFlag == "0") {
           ScaffoldMessenger.of(context).showSnackBar(
-            customsnackbar(response.sMessage.toString()),
+            customsnackbar(response!.sMessage.toString()),
           );
           if (int.parse('tuserid') == 1) {
             Navigator.pushReplacementNamed(context, 'home');
@@ -130,7 +130,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            customsnackbar(response.sMessage.toString()),
+            customsnackbar(response!.sMessage.toString()),
           );
         }
         //customsnackbar(' termino y Nada');
@@ -168,18 +168,19 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   padding: EdgeInsets.only(left: 16, right: 16),
                   decoration: BoxDecoration(
                     color: bg_light,
-                    border: Border.all(color: Colors.blueGrey[400], width: 0.5),
+                    border:
+                        Border.all(color: Colors.blueGrey[400]!, width: 0.5),
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.blueGrey[200].withOpacity(0.5),
+                        color: Colors.blueGrey[200]!.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 0.5,
                         offset: Offset(0, 0), // changes position of shadow
                       ),
                     ],
                   ),
-                  child: DropdownButton(
+                  child: DropdownButton<String>(
                     hint: Text(
                       "Selecciona el Servicio ",
                       style: TextStyle(color: bg_dark),
@@ -199,11 +200,11 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                               style: TextStyle(color: bg_dark),
                             ),
                           );
-                        })?.toList() ??
+                        }).toList() ??
                         [],
                     onChanged: (newValue) {
                       setState(() {
-                        valorDropServicio = newValue;
+                        valorDropServicio = newValue.toString();
                         valorDropModalidad = null;
                         cargaModalidades();
                       });
@@ -238,18 +239,18 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                     decoration: BoxDecoration(
                       color: bg_light,
                       border:
-                          Border.all(color: Colors.blueGrey[400], width: 0.5),
+                          Border.all(color: Colors.blueGrey[400]!, width: 0.5),
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blueGrey[200].withOpacity(0.5),
+                          color: Colors.blueGrey[200]!.withOpacity(0.5),
                           spreadRadius: 2,
                           blurRadius: 0.5,
                           offset: Offset(0, 0), // changes position of shadow
                         ),
                       ],
                     ),
-                    child: DropdownButton(
+                    child: DropdownButton<String>(
                       hint: Text(
                         "Selecciona la Modalidad",
                         style: TextStyle(color: bg_dark),
@@ -265,15 +266,15 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                             return DropdownMenuItem(
                               value: modalidad.id.toString(),
                               child: Text(
-                                modalidad.nombreModalidad,
+                                modalidad.nombreModalidad!,
                                 style: TextStyle(color: bg_dark),
                               ),
                             );
-                          })?.toList() ??
+                          }).toList() ??
                           [],
                       onChanged: (newValue) {
                         setState(() {
-                          valorDropModalidad = newValue;
+                          valorDropModalidad = newValue.toString();
                         });
                       },
                     ),
@@ -300,18 +301,19 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                   decoration: BoxDecoration(
                     color: bg_light,
-                    border: Border.all(color: Colors.blueGrey[400], width: 0.5),
+                    border:
+                        Border.all(color: Colors.blueGrey[400]!, width: 0.5),
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.blueGrey[200].withOpacity(0.5),
+                        color: Colors.blueGrey[200]!.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 0.5,
                         offset: Offset(0, 0), // changes position of shadow
                       ),
                     ],
                   ),
-                  child: DropdownButton(
+                  child: DropdownButton<String>(
                     hint: Text(
                       "Selecciona la empresa",
                       style: TextStyle(color: bg_dark),
@@ -327,83 +329,20 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                           return DropdownMenuItem(
                             value: empresa.id.toString(),
                             child: Text(
-                              empresa.nombreEmpresa,
+                              empresa.nombreEmpresa!,
                               style: TextStyle(color: bg_dark),
                             ),
                           );
-                        })?.toList() ??
+                        }).toList() ??
                         [],
                     onChanged: (newValue) {
                       setState(() {
-                        valorDropEmpresa = newValue;
+                        valorDropEmpresa = newValue.toString();
                       });
                     },
                   ),
                 ),
-                // DROPDOWN DE EMPRESAS
-                /*SizedBox(height: 20.0),
-                // DROPDOWN DE PRIORIDAD
-                /* Text(
-                  "Prioridad",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18.0,
-                  ),
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(height: 10.0),
-                Container(
-                  padding: EdgeInsets.only(
-                    left: 16,
-                    right: 16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: bgDropPrioridades,
-                    border: Border.all(color: Colors.blueGrey[400], width: 0.5),
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.blueGrey[200].withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 0.5,
-                        offset: Offset(0, 0), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: DropdownButton(
-                    hint: Text(
-                      "Selecciona la prioridad",
-                      style: TextStyle(color: bg_dark),
-                    ),
-                    dropdownColor: bg_white.withOpacity(0.9),
-                    icon: Icon(Icons.arrow_drop_down),
-                    iconSize: 26,
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                    value: valorDropPrioridad,
-                    items: prioridades?.map((prioridad) {
-                          return DropdownMenuItem(
-                            value: prioridad.idPrioridad.toString(),
-                            child: Text(
-                              prioridad.tipo,
-                              style: TextStyle(color: bg_dark),
-                            ),
-                          );
-                        })?.toList() ??
-                        [],
-                    onChanged: (newValue) {
-                      setState(() {
-                        valorDropPrioridad = newValue;
-                        cambiaColorDropPrioridad(newValue);
-                      });
-                    },
-                  ),
-                ),
-                // DROPDOWN DE PRIORIDAD
-*/
-                SizedBox(height: 20.0),
- */
+
                 TextField(
                   controller: cometarioscontroller,
                   keyboardType: TextInputType.multiline,

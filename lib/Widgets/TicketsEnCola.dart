@@ -40,7 +40,7 @@ class _EnColaState extends State<EnCola> {
   }
 
   Color colorFondo(prioridadId) {
-    Color color;
+    Color color = Colors.transparent;
     if (prioridadId == 1) {
       color = bg_fondo_important_ticket;
     } else if (prioridadId == 2) {
@@ -52,7 +52,7 @@ class _EnColaState extends State<EnCola> {
   }
 
   Color colorTitulo(prioridadId) {
-    Color color;
+    Color color = Colors.transparent;
     if (prioridadId == 1) {
       color = bg_titulo_important_ticket;
     } else if (prioridadId == 2) {
@@ -115,14 +115,14 @@ class _EnColaState extends State<EnCola> {
                   foregroundColor: Colors.black,
                 ),
                 title: Text(
-                  data[index].nombreModalidad,
+                  data[index].nombreModalidad!,
                   style: TextStyle(
                       color: bg_dark.withOpacity(0.8),
                       fontWeight: FontWeight.bold,
                       fontSize: 18),
                 ),
                 subtitle: Text(
-                  data[index].descripcionProblema,
+                  data[index].descripcionProblema!,
                   style: TextStyle(
                     color: bg_dark,
                   ),

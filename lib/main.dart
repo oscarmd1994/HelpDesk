@@ -1,3 +1,4 @@
+import 'package:app_soporte/notificationServices/pushNotificationServices.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'Screens/menuNavigationBarScreen.dart';
@@ -8,7 +9,10 @@ import 'Screens/splashScreen3.dart';
 import 'Screens/loginValidationSplashScreen.dart';
 import 'Widgets/DetallesTicket_cola.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PushNotificationService.initializeApp();
+
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
@@ -26,14 +30,14 @@ class MyApp extends StatelessWidget {
       ),
       home: SplashScreen(),
       routes: {
-        'login': (BuildContext context) => LoginScreenAdmin(),
-        'splash1': (BuildContext context) => SplashScreen(),
-        'splash2': (BuildContext context) => SplashScreen2(),
-        'splash3': (BuildContext context) => SplashScreen3(),
-        'home': (BuildContext context) => MenuNavigationBarScreen(),
+        'login': (_) => LoginScreenAdmin(),
+        'splash1': (_) => SplashScreen(),
+        'splash2': (_) => SplashScreen2(),
+        'splash3': (_) => SplashScreen3(),
+        'home': (_) => MenuNavigationBarScreen(),
         //'homeAdmin': (BuildContext context) => MenuNavigationAdminBarScreen(),
-        'wait': (BuildContext context) => LoginValidationSplashScreen(),
-        'ticketDC': (BuildContext context) => DetallesTicketCola(),
+        'wait': (_) => LoginValidationSplashScreen(),
+        'ticketDC': (_) => DetallesTicketCola(),
       },
     );
   }

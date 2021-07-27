@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-List<Prioridades> prioridadesFromJson(String str) => List<Prioridades>.from(json.decode(str).map((x) => Prioridades.fromJson(x)));
+List<Prioridades> prioridadesFromJson(String str) => List<Prioridades>.from(
+    json.decode(str).map((x) => Prioridades.fromJson(x)));
 
-String prioridadesToJson(List<Prioridades> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String prioridadesToJson(List<Prioridades> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Prioridades {
   Prioridades({
@@ -11,19 +13,19 @@ class Prioridades {
     this.cancelado,
   });
 
-  int idPrioridad;
-  String tipo;
-  int cancelado;
+  int? idPrioridad;
+  String? tipo;
+  int? cancelado;
 
   factory Prioridades.fromJson(Map<String, dynamic> json) => Prioridades(
-    idPrioridad: json["idPrioridad"],
-    tipo: json["tipo"],
-    cancelado: json["cancelado"],
-  );
+        idPrioridad: json["idPrioridad"],
+        tipo: json["tipo"],
+        cancelado: json["cancelado"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "idPrioridad": idPrioridad,
-    "tipo": tipo,
-    "cancelado": cancelado,
-  };
+        "idPrioridad": idPrioridad,
+        "tipo": tipo,
+        "cancelado": cancelado,
+      };
 }

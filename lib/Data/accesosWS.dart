@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /////////////////////////////////////////
 ////////  PETICIONES GET   //////////////
 /////////////////////////////////////////
-Future<List<TipoServicioBean>> getServicios() async {
+Future<List<TipoServicioBean>?> getServicios() async {
   var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/tiposervicio");
   var response = await http.get(url);
   if (response.statusCode == 200) {
@@ -25,7 +25,7 @@ Future<List<TipoServicioBean>> getServicios() async {
   }
 }
 
-Future<List<Tickets>> getTickets() async {
+Future<List<Tickets>?> getTickets() async {
   var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/tiposervicio");
   var response = await http.get(url);
   if (response.statusCode == 200) {
@@ -35,7 +35,7 @@ Future<List<Tickets>> getTickets() async {
   }
 }
 
-Future<List<Modalidades>> getModalidades(id) async {
+Future<List<Modalidades>?> getModalidades(id) async {
   var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/modalidades/$id");
   var response = await http.get(url);
   if (response.statusCode == 200) {
@@ -45,7 +45,7 @@ Future<List<Modalidades>> getModalidades(id) async {
   }
 }
 
-Future<List<Empresas>> getEmpresas() async {
+Future<List<Empresas>?> getEmpresas() async {
   var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/empresas");
   var response = await http.get(url);
   if (response.statusCode == 200) {
@@ -55,7 +55,7 @@ Future<List<Empresas>> getEmpresas() async {
   }
 }
 
-Future<List<Prioridades>> getPrioridades() async {
+Future<List<Prioridades>?> getPrioridades() async {
   var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/prioridades");
   var response = await http.get(url);
   if (response.statusCode == 200) {
@@ -68,8 +68,8 @@ Future<List<Prioridades>> getPrioridades() async {
 /////////////////////////////////////////
 ////////  PETICIONES POST   /////////////
 /////////////////////////////////////////
-Future<Respuestas> postSaveNewTicket(String usuarioSolicitanteId,
-    String empresaId, String modalidadId, String descripcionProblema) async {
+Future<Respuestas?> postSaveNewTicket(String? usuarioSolicitanteId,
+    String? empresaId, String? modalidadId, String? descripcionProblema) async {
   final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/Tickets";
   var response = await http.post(
     Uri.parse(apiUrl),
@@ -92,7 +92,7 @@ Future<Respuestas> postSaveNewTicket(String usuarioSolicitanteId,
   }
 }
 
-Future<UserData> getUserData(String user, String pass) async {
+Future<UserData?> getUserData(String user, String pass) async {
   final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/TUsuarios";
   var response = await http.post(
     Uri.parse(apiUrl),
@@ -128,7 +128,7 @@ Future<void> getTicket() async {
     nombreModalidad = ticket.nombreModalidad;
     status = ticket.status;
     statusId = ticket.statusId.toString();
-    fechaCreacion = DateTime.parse(ticket.fechaCreacion).toString();
+    fechaCreacion = DateTime.parse(ticket.fechaCreacion.toString()).toString();
     prioridadId = ticket.prioridadId.toString();
     usuarioSolicitante = ticket.usuarioSolicitante;
     usuarioSolicitanteId = ticket.usuarioSolicitanteId;
@@ -146,17 +146,17 @@ Future<SharedPreferences> getSharePreferences() async {
 
 Future<void> saveDataEmp(BuildContext context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.getString('user') == null) {
+  if (prefs.getString('user') == null || prefs.getString('user') == "") {
     Navigator.pushReplacementNamed(context, 'login');
   } else {
-    UserData userData =
-        await getUserData(prefs.getString('user'), prefs.getString('pass'));
-    await prefs.setString('idUsuario', userData.idUsuario);
-    await prefs.setString('nombre', userData.nombre);
-    await prefs.setString('paterno', userData.paterno);
-    await prefs.setString('materno', userData.materno);
-    await prefs.setString('email', userData.email);
-    await prefs.setString('tipoUser', userData.tipoUser);
-    await prefs.setString('tipoUserId', userData.tipoUserId);
+    UserData? userData =
+        await getUserData(prefs.getString('user')!, prefs.getString('pass')!);
+    await prefs.setString('idUsuario', userData!.idUsuario.toString());
+    await prefs.setString('nombre', userData.nombre.toString());
+    await prefs.setString('paterno', userData.paterno.toString());
+    await prefs.setString('materno', userData.materno.toString());
+    await prefs.setString('email', userData.email.toString());
+    await prefs.setString('tipoUser', userData.tipoUser.toString());
+    await prefs.setString('tipoUserId', userData.tipoUserId.toString());
   }
 }
