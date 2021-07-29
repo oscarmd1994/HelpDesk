@@ -183,8 +183,9 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                             notification = "Bienvenido";
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      LoginValidationSplashScreen()),
+                                builder: (context) =>
+                                    LoginValidationSplashScreen(),
+                              ),
                             );
                           } else if (response?.iFlag == "1") {
                             notification = "Credenciales invalidas";

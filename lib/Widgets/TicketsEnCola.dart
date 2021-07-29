@@ -1,7 +1,7 @@
+import 'package:app_soporte/Models/ListDetalleTicketsBean.dart';
 import 'package:app_soporte/Screens/appStrings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Screens/appColors.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
@@ -13,12 +13,12 @@ class EnCola extends StatefulWidget {
 }
 
 class _EnColaState extends State<EnCola> {
-  List<Tickets> data = [];
+  List<ListDetalleTicketsBean> data = [];
 
-  Future<List<Tickets>> getTickets() async {
-    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/tickets");
+  Future<List<ListDetalleTicketsBean>> getTickets() async {
+    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/list/1");
     var response = await http.get(url);
-    return ticketsFromJson(response.body);
+    return listDetalleTicketsBeanFromJson(response.body);
   }
 
   @override
@@ -34,18 +34,18 @@ class _EnColaState extends State<EnCola> {
 
   String _setTimeAgo(fecha) {
     String time;
-    time = timeago.format(fecha, locale: 'es');
+    time = timeago.format(DateTime.parse(fecha), locale: 'es');
 
     return time;
   }
 
   Color colorFondo(prioridadId) {
     Color color = Colors.transparent;
-    if (prioridadId == 1) {
+    if (prioridadId == "1") {
       color = bg_fondo_important_ticket;
-    } else if (prioridadId == 2) {
+    } else if (prioridadId == "2") {
       color = bg_fondo_medium_ticket;
-    } else if (prioridadId == 3) {
+    } else if (prioridadId == "3") {
       color = bg_fondo_less_ticket;
     }
     return color;
@@ -53,12 +53,12 @@ class _EnColaState extends State<EnCola> {
 
   Color colorTitulo(prioridadId) {
     Color color = Colors.transparent;
-    if (prioridadId == 1) {
-      color = bg_titulo_important_ticket;
-    } else if (prioridadId == 2) {
-      color = bg_titulo_medium_ticket;
-    } else if (prioridadId == 3) {
-      color = bg_titulo_less_ticket;
+    if (prioridadId == "1") {
+      color = bg_fondo_important_ticket;
+    } else if (prioridadId == "2") {
+      color = bg_fondo_medium_ticket;
+    } else if (prioridadId == "3") {
+      color = bg_fondo_less_ticket;
     }
     return color;
   }

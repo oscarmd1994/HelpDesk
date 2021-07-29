@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     userid = prefs!.getString('idUsuario');
     name = prefs!.getString('nombre');
     apellidos = '${prefs!.getString('paterno')} ${prefs!.getString('materno')}';
-    tuserid = prefs!.getString('tipoUser');
+    tuserid = prefs!.getString('tipoUserId');
     user = prefs!.getString('user');
     tuser = prefs!.getString('tipoUser');
     email = prefs!.getString('email');

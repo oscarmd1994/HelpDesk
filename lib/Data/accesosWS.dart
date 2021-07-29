@@ -4,10 +4,10 @@ import 'package:app_soporte/Models/EmpresasBean.dart';
 import 'package:app_soporte/Models/ModalidadesBean.dart';
 import 'package:app_soporte/Models/PrioridadesBean.dart';
 import 'package:app_soporte/Models/RespuestasBean.dart';
-import 'package:app_soporte/Models/TicketsBean.dart';
 import 'package:app_soporte/Models/TipoServicioBean.dart';
 import 'package:app_soporte/Models/UserDataBean.dart';
 import 'package:app_soporte/Screens/appStrings.dart';
+import 'package:app_soporte/Models/ListDetalleTicketsBean.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,11 +25,11 @@ Future<List<TipoServicioBean>?> getServicios() async {
   }
 }
 
-Future<List<Tickets>?> getTickets() async {
+Future<List<ListDetalleTicketsBean>?> getTickets() async {
   var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/tiposervicio");
   var response = await http.get(url);
   if (response.statusCode == 200) {
-    return ticketsFromJson(response.body);
+    return listDetalleTicketsBeanFromJson(response.body);
   } else {
     return null;
   }
@@ -93,7 +93,8 @@ Future<Respuestas?> postSaveNewTicket(String? usuarioSolicitanteId,
 }
 
 Future<UserData?> getUserData(String user, String pass) async {
-  final String apiUrl = "https://wshelpdesk.gruposeri.com:36000/TUsuarios";
+  final String apiUrl =
+      "https://wshelpdesk.gruposeri.com:36000/TUsuarios/userdata";
   var response = await http.post(
     Uri.parse(apiUrl),
     headers: {
@@ -149,9 +150,11 @@ Future<void> saveDataEmp(BuildContext context) async {
   if (prefs.getString('user') == null || prefs.getString('user') == "") {
     Navigator.pushReplacementNamed(context, 'login');
   } else {
-    UserData? userData =
-        await getUserData(prefs.getString('user')!, prefs.getString('pass')!);
+    String param1 = prefs.getString('user')!;
+    String param2 = prefs.getString('pass')!;
+    UserData? userData = await getUserData(param1, param2);
     await prefs.setString('idUsuario', userData!.idUsuario.toString());
+
     await prefs.setString('nombre', userData.nombre.toString());
     await prefs.setString('paterno', userData.paterno.toString());
     await prefs.setString('materno', userData.materno.toString());

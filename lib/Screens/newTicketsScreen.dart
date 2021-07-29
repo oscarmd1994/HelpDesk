@@ -123,9 +123,9 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             customsnackbar(response!.sMessage.toString()),
           );
-          if (int.parse('tuserid') == 1) {
+          if (int.parse(tuserid!) == 1) {
             Navigator.pushReplacementNamed(context, 'home');
-          } else if (int.parse('tuserid') == 2) {
+          } else if (int.parse(tuserid!) == 2) {
             Navigator.pushReplacementNamed(context, 'homeAdmin');
           }
         } else {
