@@ -175,10 +175,19 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
     );
   }
 
+  Future<void> goBack() async {
+    Navigator.pushReplacementNamed(context, 'home');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder(
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pushReplacementNamed(context, 'home');
+        return false;
+      },
+      child: Scaffold(
+        body: FutureBuilder(
           future: getTicket(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             Widget screen = Container();
@@ -220,9 +229,12 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                           color: bg_dfondo,
                         ),
                         title: Text(
-                          _setTimeAgo(DateTime.parse(fechaCreacion!)),
+                          fechaCreacion!.substring(0, 10) +
+                              ' - (' +
+                              _setTimeAgo(DateTime.parse(fechaCreacion!)) +
+                              ')',
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.black87,
                             fontSize: 15,
                           ),
                         ),
@@ -246,12 +258,34 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                         left: MediaQuery.of(context).size.width * 0.05,
                       ),
                       child: ListTile(
-                        //leading: Icon(CupertinoIcons.asterisk_circle),
-                        title: Text(
-                          nombreModalidad!,
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 15,
+                        title: Container(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                            left: 25,
+                            right: 25,
+                            bottom: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: bg_fondo_form,
+                            border: Border(
+                              top: BorderSide(width: 1.0, color: bg_light),
+                              left: BorderSide(width: 1.0, color: bg_light),
+                              right: BorderSide(width: 1.0, color: bg_light),
+                              bottom: BorderSide(width: 1.0, color: bg_light),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            nombreModalidad!,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ),
@@ -274,12 +308,34 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                         left: MediaQuery.of(context).size.width * 0.05,
                       ),
                       child: ListTile(
-                        //leading: Icon(CupertinoIcons.chat_bubble_text),
-                        title: Text(
-                          descripcionProblema!,
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 15,
+                        title: Container(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                            left: 25,
+                            right: 25,
+                            bottom: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: bg_fondo_form,
+                            border: Border(
+                              top: BorderSide(width: 1.0, color: bg_light),
+                              left: BorderSide(width: 1.0, color: bg_light),
+                              right: BorderSide(width: 1.0, color: bg_light),
+                              bottom: BorderSide(width: 1.0, color: bg_light),
+                            ),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            descripcionProblema!,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ),
@@ -309,7 +365,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                         title: Text(
                           usuarioSolicitante!,
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.black87,
                             fontSize: 15,
                           ),
                         ),
@@ -340,9 +396,40 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
                         title: Text(
                           prioridad!,
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.black87,
                             fontSize: 15,
                           ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: Text(
+                        'Status de la solicitud',
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: ListTile(
+                        leading: Icon(
+                          CupertinoIcons.number_square_fill,
+                          color: bg_dfondo,
+                        ),
+                        title: Text(
+                          status!,
+                          style: TextStyle(
+                              color: bg_dark.withRed(200),
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -392,7 +479,9 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
               );
             }
             return screen;
-          }),
+          },
+        ),
+      ),
     );
   }
 }

@@ -43,62 +43,88 @@ class _MenuNavigationBarScreenState extends State<MenuNavigationBarScreen> {
     });
   }
 
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Cerrar Help Desk'),
+            content: Text('¿Estas seguro?'),
+            actions: <Widget>[
+              TextButton(
+                child: Text("Cancelar"),
+                onPressed: () => Navigator.of(context).pop(false),
+              ),
+              TextButton(
+                child: Text("Continuar"),
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
+            ],
+          ),
+        )) ??
+        false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: saveDataEmp(context),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        Widget screen = Container();
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          screen = LoadPage();
-        } else if (snapshot.connectionState == ConnectionState.none) {
-          errorText = "REVIZA TU CONEXÓN A INTERNET";
-          screen = ErrorPage();
-        } else if (snapshot.connectionState == ConnectionState.done) {
-          screen = Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              backgroundColor: bg_dfondo,
-              title: Text(
-                titulo,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: bg_white,
-                ),
-              ),
-              brightness: Brightness.dark,
-            ),
-            body: selectedScreen,
-            bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: bg_secondary,
-              selectedItemColor: bg_addbutton,
-              unselectedItemColor: bg_fondo_btn_menus,
-              onTap: onTabTapped,
-              currentIndex: _currentIndex,
-              type: BottomNavigationBarType.shifting,
-              items: [
-                BottomNavigationBarItem(
-                  icon: new Icon(Icons.home),
-                  label: 'Inicio',
-                ),
-                BottomNavigationBarItem(
-                  icon: new Icon(Icons.person),
-                  label: 'Perfil',
-                ),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.restore_sharp), label: 'Historial'),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.add_circle),
-                  label: 'Agregar Ticket',
-                ),
-              ],
-            ),
-          );
-        }
-
-        return screen;
+    return WillPopScope(
+      onWillPop: () async {
+        return _onWillPop();
       },
+      child: FutureBuilder(
+        future: saveDataEmp(context),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          Widget screen = Container();
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            screen = LoadPage();
+          } else if (snapshot.connectionState == ConnectionState.none) {
+            errorText = "REVIZA TU CONEXÓN A INTERNET";
+            screen = ErrorPage();
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            screen = Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+                backgroundColor: bg_dfondo,
+                title: Text(
+                  titulo,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: bg_white,
+                  ),
+                ),
+                brightness: Brightness.dark,
+              ),
+              body: selectedScreen,
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: bg_secondary,
+                selectedItemColor: bg_addbutton,
+                unselectedItemColor: bg_fondo_btn_menus,
+                onTap: onTabTapped,
+                currentIndex: _currentIndex,
+                type: BottomNavigationBarType.shifting,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: new Icon(Icons.home),
+                    label: 'Inicio',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: new Icon(Icons.person),
+                    label: 'Perfil',
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.restore_sharp), label: 'Historial'),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.add_circle),
+                    label: 'Agregar Ticket',
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return screen;
+        },
+      ),
     );
   }
 }

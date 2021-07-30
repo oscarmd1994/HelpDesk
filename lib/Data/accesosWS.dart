@@ -124,6 +124,7 @@ Future<void> getTicket() async {
   print(response.statusCode);
   if (response.statusCode == 200) {
     //return ticketsFromJson(response.body);
+    print(response.body);
     ticket = detalleTicketsBeanFromJson(response.body);
     descripcionProblema = ticket.descripcionProblema;
     nombreModalidad = ticket.nombreModalidad;

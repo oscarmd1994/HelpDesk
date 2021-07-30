@@ -4,16 +4,16 @@ import 'package:app_soporte/Screens/appColors.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
 
-class Aplazados extends StatefulWidget {
+class Concluidos extends StatefulWidget {
   @override
-  _AplazadosState createState() => _AplazadosState();
+  _ConcluidosState createState() => _ConcluidosState();
 }
 
-class _AplazadosState extends State<Aplazados> {
+class _ConcluidosState extends State<Concluidos> {
   List<ListDetalleTicketsBean> data = [];
 
   Future<List<ListDetalleTicketsBean>> getTickets() async {
-    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/list/3");
+    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/list/4");
     var response = await http.get(url);
     return listDetalleTicketsBeanFromJson(response.body);
   }
@@ -59,7 +59,7 @@ class _AplazadosState extends State<Aplazados> {
       return Container(
         child: Center(
           child: Text(
-            'No hay Tickets aplazados',
+            'No hay Tickets concluidos',
             style: TextStyle(
               fontSize: 20,
               color: Colors.black54,
