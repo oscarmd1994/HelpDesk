@@ -13,7 +13,7 @@ class _AplazadosState extends State<Aplazados> {
   List<ListDetalleTicketsBean> data = [];
 
   Future<List<ListDetalleTicketsBean>> getTickets() async {
-    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/list/3");
+    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/list/4");
     var response = await http.get(url);
     return listDetalleTicketsBeanFromJson(response.body);
   }

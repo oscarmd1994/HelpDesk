@@ -13,7 +13,7 @@ class _EnProcesoState extends State<EnProceso> {
   List<ListDetalleTicketsBean> data = [];
 
   Future<List<ListDetalleTicketsBean>> getTickets() async {
-    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/list/2");
+    var url = Uri.parse("https://wshelpdesk.gruposeri.com:36000/list/3");
     var response = await http.get(url);
     print(response.body);
     return listDetalleTicketsBeanFromJson(response.body);
