@@ -1,4 +1,3 @@
-import 'package:app_soporte/Widgets/TicketsConcluidos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app_soporte/Screens/appColors.dart';
@@ -29,7 +28,7 @@ class _TicketScreenState extends State<TicketScreen> {
                   icon: Icon(Icons.watch_later_outlined),
                 ),
                 Tab(
-                  text: 'En Proceso',
+                  text: 'Asignados',
                   icon: Icon(Icons.handyman_sharp),
                 ),
                 Tab(
@@ -37,8 +36,8 @@ class _TicketScreenState extends State<TicketScreen> {
                   icon: Icon(Icons.people_alt),
                 ),
                 Tab(
-                  text: 'Concluidos 24h',
-                  icon: Icon(Icons.check_sharp),
+                  text: 'Mios',
+                  icon: Icon(CupertinoIcons.square_list_fill),
                 ),
               ],
             ),
@@ -49,7 +48,9 @@ class _TicketScreenState extends State<TicketScreen> {
                 EnCola(),
                 EnProceso(),
                 Aplazados(),
-                Concluidos(),
+                Container(
+                  child: Center(child: Text("MIS TICKETS")),
+                ),
               ],
             ),
           ),

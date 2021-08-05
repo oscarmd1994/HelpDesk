@@ -26,7 +26,7 @@ class _DetallesTicketColaState extends State<DetallesTicketCola> {
 
   // CAMBIA EL COLOR DEL DROP SEGUN LA PRIORIDAD
   Color cambiaColorDropPrioridad(String newValue) {
-    print(newValue);
+    //print(newValue);
     Color color = Colors.transparent;
     if (int.parse(newValue) == 1) {
       color = bg_fondo_important_ticket;

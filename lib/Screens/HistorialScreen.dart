@@ -47,7 +47,7 @@ class _HistorialScreenState extends State<HistorialScreen> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.add),
+          //icon: Icon(Icons.add),
           label: Text('Actualizar'),
           backgroundColor: bg_addbutton,
           onPressed: () {

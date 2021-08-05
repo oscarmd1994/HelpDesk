@@ -84,7 +84,7 @@ Future<Respuestas?> postSaveNewTicket(String? usuarioSolicitanteId,
       "Descripcion_problema": descripcionProblema
     }),
   );
-  print(response.body);
+  //print(response.body);
   if (response.statusCode == 200) {
     return respuestasFromJson(response.body);
   } else {
@@ -115,16 +115,16 @@ Future<void> getTicket() async {
 
   final String apiUrl =
       "https://wshelpdesk.gruposeri.com:36000/Tickets/$idTicket";
-  print('id = $idTicket');
-  print('$apiUrl');
+  //print('id = $idTicket');
+  //print('$apiUrl');
   var response = await http.get(Uri.parse(apiUrl) //,
       //headers: {'Content-Type': 'application/json; charset=UTF-8'},
       //body: jsonEncode({"Id": idTicket}),
       );
-  print(response.statusCode);
+  //print(response.statusCode);
   if (response.statusCode == 200) {
     //return ticketsFromJson(response.body);
-    print(response.body);
+    //print(response.body);
     ticket = detalleTicketsBeanFromJson(response.body);
     descripcionProblema = ticket.descripcionProblema;
     nombreModalidad = ticket.nombreModalidad;

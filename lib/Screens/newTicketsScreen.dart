@@ -87,7 +87,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
 
   // CAMBIA EL COLOR DEL DROP SEGUN LA PRIORIDAD
   void cambiaColorDropPrioridad(newValue) {
-    print(newValue);
+    //print(newValue);
     Color? color;
     if (int.parse(valorDropPrioridad.toString()) == 1) {
       color = bg_fondo_important_ticket;
@@ -281,9 +281,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   ),
                 ),
                 // DROPDOWN DE Modalidades
-
                 SizedBox(height: 20.0),
-
                 // DROPDOWN DE EMPRESAS
                 Text(
                   "Empresa",
@@ -342,7 +340,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                     },
                   ),
                 ),
-
+                SizedBox(height: 20.0),
                 TextField(
                   controller: cometarioscontroller,
                   keyboardType: TextInputType.multiline,
@@ -380,7 +378,7 @@ class _NewTicketsScreenState extends State<NewTicketsScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.save, color: bg_white),
+                      //Icon(Icons.save, color: bg_white),
                       Text(
                         ' Generar ticket',
                         style: TextStyle(color: bg_white, fontSize: 18),

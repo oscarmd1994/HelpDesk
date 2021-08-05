@@ -34,9 +34,9 @@ class _EnColaState extends State<EnCola> {
 
   String _setTimeAgo(fecha) {
     String time;
-    print(DateTime.parse(fecha));
+    //print(DateTime.parse(fecha));
     time = timeago.format(DateTime.parse(fecha), locale: 'es');
-    print(time);
+    //print(time);
     return time;
   }
 

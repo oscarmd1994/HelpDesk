@@ -149,15 +149,86 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      CupertinoIcons.at,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      'Correo',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              Divider(),
               Row(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
-                      Icons.email,
+                      CupertinoIcons.at,
                     ),
                   ),
-                  Text(email!),
+                  Text(
+                    email!,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text('Area'),
+                  ),
+                ],
+              ),
+              Divider(),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      CupertinoIcons.at,
+                    ),
+                  ),
+                  Text(
+                    email!,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text('Usuario'),
+                  ),
+                ],
+              ),
+              Divider(),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      CupertinoIcons.at,
+                    ),
+                  ),
+                  Text(
+                    email!,
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ],
               ),
               Row(
